@@ -12,7 +12,7 @@
         "url": "https://github.com/sgwozdz/jenkinsfile-support/issues"
     },
     "icon": "images/icon.png",
-    "publisher": "gwozdz_one",
+    "publisher": "ivory-lab",
     "engines": {
         "vscode": "^1.28.0"
     },
