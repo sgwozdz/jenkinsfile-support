@@ -1,0 +1,42 @@
+{
+    "name": "jenkinsfile-support",
+    "displayName": "JenkinsFile Support",
+    "description": "",
+    "version": "0.0.1",
+    "publisher": "gwozdz_one",
+    "engines": {
+        "vscode": "^1.28.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "keywords": [
+        "jenkins",
+        "jenkinsfile",
+        "jdp"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "jenkinsfile",
+                "aliases": [
+                    "jenkins",
+                    "jenkinsfile"
+                ],
+                "extensions": [
+                    "Jenkinsfile",
+                    "jenkinsfile",
+                    ".jdp"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "jenkinsfile",
+                "scopeName": "source.jenkins",
+                "path": "./syntaxes/jenkinsfile.tmLanguage.json"
+            }
+        ]
+    }
+}
