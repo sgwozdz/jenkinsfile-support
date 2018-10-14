@@ -8,18 +8,9 @@ pipeline {
     }
     stages {
         stage('Example Build') {
-            agent { 
-                dockerfile {
-                filename 'Dockerfile.build'
-                dir 'build'
-                label 'my-defined-label'
-                additionalBuildArgs  '--build-arg version=1.0.2'
-                args '-v /tmp:/tmp'
-                }
-            }
             steps {
                 step {
-                    echo 'Hello, Maven'
+                    echo 'Hello, Jenkins'
                     s/*h 'mvn --version'*/
                 }
             }
@@ -32,7 +23,7 @@ pipeline {
             steps {
                 step{
                     //echo 'Hello, JDK'
-                    echo "Hello ${params.PERSON}"
+                    echo "Hello ${params.PERSON}\n"
                     sh 'java -version'
                 }
             }
@@ -40,7 +31,7 @@ pipeline {
     }
     post{
         always{
-            
+            echo 'I will always say Hello again!'
         }
     }
 }
