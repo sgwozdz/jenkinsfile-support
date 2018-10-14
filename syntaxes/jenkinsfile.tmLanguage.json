@@ -1,0 +1,104 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "jenkins",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#stage"
+		},
+		{
+			"include": "#step"
+		},
+		{
+			"include": "#functions"
+		},
+		{
+			"include": "#conditions"
+		},
+		{
+			"include": "#variables"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#comments"
+		}
+	],
+	"repository": {
+		"stage": {
+			"patterns": [
+				{
+					"name": "keyword.other.jenkinsfile",
+					"match": "\\b(stage)\\b"
+				}
+			]
+		},
+		"step": {
+			"patterns": [
+				{
+					"name": "entity.name.class.jenkinsfile",
+					"match": "\\b(step)\\b"
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.jenkinsfile",
+					"match": "\\b(agent|post|stages|steps|environment|options|parameters|triggers|tools|input|when)\\b"
+				}
+			]
+		},
+		"functions": {
+			"patterns": [
+				{
+					"name": "strong.jenkinsfile",
+					"match": "\\b(bat|node|powershell|sh|ws|echo)\\b"
+				}
+			]
+		},
+		"conditions": {
+			"patterns": [
+				{
+					"name": "entity.name.function.jenkinsfile",
+					"match": "\\b(always|changed|fixed|regression|aborted|failure|success|unstable|cleanup)\\b"
+				}
+			]
+		},
+		"variables": {
+			"patterns": [
+				{
+					"name": "variable.parameter.jenkinsfile",
+					"match": "\\w+:"
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double.jenkinsfile",
+			"begin": "(\"|')",
+			"end": "(\"|')",
+			"patterns": [
+				{
+					"name": "constant.character.escape.jenkinsfile",
+					"match": "\\\\."
+				},
+				{
+					"name": "variable.parameter.jenkinsfile",
+					"match": "(?<=\\${).*?(?=})"
+				}
+			]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.line.double-slash.jenkinsfile",
+					"match": "((//).*$\n?|(/\\*).+?(\\*/))"
+				}
+			]
+		}
+	},
+	"scopeName": "source.jenkins"
+}

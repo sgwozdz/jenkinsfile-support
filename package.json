@@ -1,0 +1,56 @@
+{
+    "name": "jenkinsfile-support",
+    "displayName": "JenkinsFile Support",
+    "description": "Extension provides basic syntax highlighting support.",
+    "version": "0.1.0",
+    "license": "MIT",
+    "author": {
+        "name": "Szymon Gwóźdź",
+        "email": "szymon.gwozdz@outlook.com"
+    },
+    "bugs": {
+        "url": "https://github.com/sgwozdz/jenkinsfile-support/issues"
+    },
+    "icon": "images/icon.png",
+    "publisher": "ivory-lab",
+    "engines": {
+        "vscode": "^1.28.0"
+    },
+    "homepage": "https://github.com/sgwozdz/jenkinsfile-support",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sgwozdz/jenkinsfile-support.git"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "keywords": [
+        "jenkins",
+        "jenkinsfile",
+        "jdp"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "jenkinsfile",
+                "aliases": [
+                    "Jenkinsfile",
+                    "jenkinsfile"
+                ],
+                "extensions": [
+                    "Jenkinsfile",
+                    "jenkinsfile",
+                    ".jdp"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "jenkinsfile",
+                "scopeName": "source.jenkins",
+                "path": "./syntaxes/jenkinsfile.tmLanguage.json"
+            }
+        ]
+    }
+}
