@@ -7,6 +7,10 @@ Extension gives user basic jenkinsfile support.
   
 ![Functionality](images/functionality.png)
 ## Release Notes
+### 0.1.2
+* aligning versions
+### 0.1.1
+* fix readme image path
 ### 0.1.0
 
 * basic syntax highlighting
