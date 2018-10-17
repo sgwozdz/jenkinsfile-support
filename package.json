@@ -2,7 +2,7 @@
     "name": "jenkinsfile-support",
     "displayName": "JenkinsFile Support",
     "description": "Extension provides basic syntax highlighting support.",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "license": "MIT",
     "author": {
         "name": "Szymon Gwóźdź",
