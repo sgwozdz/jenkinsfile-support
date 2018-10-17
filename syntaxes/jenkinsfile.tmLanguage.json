@@ -94,8 +94,13 @@
 		"comments": {
 			"patterns": [
 				{
+					"name": "comment.block",
+					"begin": "/\\*",
+					"end": "\\*/"
+				},
+				{
 					"name": "comment.line.double-slash.jenkinsfile",
-					"match": "((//).*$\n?|(/\\*).+?(\\*/))"
+					"match": "((//).*$\n?)"
 				}
 			]
 		}
