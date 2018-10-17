@@ -1,0 +1,19 @@
+{
+    "source.jenkins": {
+        "template": {
+            "prefix" : "tmp",
+            "body": "pipeline {\n\tagent any\n\tstages {\n\t\tstage('${1:stage}') {\n\t\t\tsteps {\n\t\t\t\tstep {\n\t\t\t}\n\t\t}\n\t}\n}",
+            "description": "basic template"
+        },
+        "stage": {
+            "prefix": "stg",
+            "body": "stage('${1:stage}'){\n\n}",
+            "description": "create stage"
+        },
+        "step": {
+            "prefix": "stp",
+            "body": "step('${1:step}'){\n\n}",
+            "description": "create step"
+        }
+    }
+}

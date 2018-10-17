@@ -22,7 +22,8 @@
         "url": "https://github.com/sgwozdz/jenkinsfile-support.git"
     },
     "categories": [
-        "Programming Languages"
+        "Programming Languages",
+        "Snippets"
     ],
     "keywords": [
         "jenkins",
@@ -42,6 +43,10 @@
                     "jenkinsfile",
                     ".jdp"
                 ],
+                "filenames": [
+                    "Jenkinsfile",
+                    "jenkinsfile"
+                ],
                 "configuration": "./language-configuration.json"
             }
         ],
@@ -51,6 +56,13 @@
                 "scopeName": "source.jenkins",
                 "path": "./syntaxes/jenkinsfile.tmLanguage.json"
             }
-        ]
+        ],
+        "snippets": [
+            {
+              "language": "jenkinsfile",
+              "scopeName": "source.jenkins",
+              "path": "./snippets/snippets.json"
+            }
+          ]
     }
 }
