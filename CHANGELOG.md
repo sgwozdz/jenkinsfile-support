@@ -6,6 +6,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 ### Added
 - multiline comments
+- tmp, stg, stp snippets
 
 ## [0.1.2] - 2018-10-24
 ### Fixed
