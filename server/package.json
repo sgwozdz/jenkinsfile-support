@@ -13,6 +13,5 @@
 	},
 	"dependencies": {
 		"vscode-languageserver": "^5.1.0"
-	},
-	"scripts": {}
+	}
 }
