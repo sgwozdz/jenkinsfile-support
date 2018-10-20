@@ -30,6 +30,10 @@
         "jenkinsfile",
         "jdp"
     ],
+    "activationEvents": [
+        "onLanguage:jenkinsfile"
+    ],
+    "main": "./client/out/extension",
     "contributes": {
         "languages": [
             {
@@ -59,10 +63,23 @@
         ],
         "snippets": [
             {
-              "language": "jenkinsfile",
-              "scopeName": "source.jenkins",
-              "path": "./snippets/snippets.json"
+                "language": "jenkinsfile",
+                "scopeName": "source.jenkins",
+                "path": "./snippets/snippets.json"
             }
-          ]
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "cd client && npm run update-vscode && cd .. && npm run compile",
+        "compile:client": "tsc -p ./client/tsconfig.json",
+        "compile:server": "tsc -p ./server/tsconfig.json",
+        "watch:client": "tsc -w -p ./client/tsconfig.json",
+        "watch:server": "tsc -w -p ./server/tsconfig.json",
+        "compile": "npm run compile:client && npm run compile:server",
+        "postinstall": "cd client && npm install && cd ../server && npm install && cd .."
+    },
+    "devDependencies": {
+        "@types/node": "^10.12.0",
+        "typescript": "3.1.3"
     }
 }

@@ -1,0 +1,22 @@
+{
+	"name": "lsp-client",
+	"description": "Code extension language client",
+	"version": "1.0.0",
+	"license": "MIT",
+	"publisher": "ivory-lab",
+	"author": {
+		"name": "Szymon Gwóźdź",
+		"email": "szymon.gwozdz@outlook.com"
+	},
+	"engines": {
+		"vscode": "^1.28.0"
+	},
+	"scripts": {
+		"update-vscode": "vscode-install",
+		"postinstall": "vscode-install"
+	},
+	"dependencies": {
+		"vscode": "^1.1.21",
+		"vscode-languageclient": "^5.1.1"
+	}
+}
