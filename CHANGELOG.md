@@ -5,8 +5,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 ### Added
-- Language server protocol
-    - on hover action
+- LSP - on hover action
+- LSP - auto completion
 ## [0.2.0] - 2018-10-18
 ### Added
 - multiline comments
