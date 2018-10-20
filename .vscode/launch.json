@@ -23,5 +23,11 @@
 			"restart": true,
 			"outFiles": ["${workspaceFolder}/server/out/**/*.js"]
 		},
-    ]
+    ],
+    "compounds": [
+		{
+			"name": "Extension + Server",
+			"configurations": ["Extension", "Attach to Server"]
+		}
+	]
 }

@@ -9,6 +9,8 @@ import {
 	TextDocumentPositionParams,
 	MarkupKind,
 	MarkupContent,
+	CompletionItem,
+	CompletionItemKind
 } from 'vscode-languageserver';
 
 let connection = createConnection(ProposedFeatures.all);
@@ -16,7 +18,7 @@ let documents: TextDocuments = new TextDocuments();
 const keywords: { [name: string]: { required: string, parameters: string, allowed: string } } = {
 	agent: {
 		required: 'Yes',
-		parameters: 'https://jenkins.io/doc/book/pipeline/syntax/#agent-parameters',
+		parameters: 'any|none|label||node|docker|dockerfile',
 		allowed: 'In the top-level pipeline block and each stage block.'
 	},
 	post: {
@@ -69,14 +71,17 @@ const keywords: { [name: string]: { required: string, parameters: string, allowe
 		parameters: 'None',
 		allowed: 'Inside a stage directive'
 	}
-	
+
 };
 
 connection.onInitialize((params: InitializeParams) => {
 	return {
 		capabilities: {
 			textDocumentSync: documents.syncKind,
-			hoverProvider: true
+			hoverProvider: true,
+			completionProvider: {
+				resolveProvider: true
+			}
 		}
 	};
 });
@@ -93,15 +98,47 @@ connection.onHover(
 		}
 		let markdown: MarkupContent = {
 			kind: MarkupKind.Markdown,
-			value: [`**Required:** ${desc.required}   `,
-			`**Parameters:** ${desc.parameters}   `,
-			`**Allowed:** ${desc.allowed}   `]
+			value: [`**Required:** ${desc.required}  `,
+			`**Parameters:** ${desc.parameters}  `,
+			`**Allowed:** ${desc.allowed}`]
 				.join('\r')
 		};
 		return {
 			contents: markdown
 		};
 	});
+
+connection.onCompletion(
+	(_textDocumentPosition: TextDocumentPositionParams): CompletionItem[] => {
+		// The pass parameter contains the position of the text document in
+		// which code complete got requested. For the example we ignore this
+		// info and always provide the same completion items.
+		let list : CompletionItem[] = [];
+
+		for(let keyword in keywords){
+			list.push({
+				label: keyword,
+				kind: CompletionItemKind.Keyword
+			})
+		}
+
+		return list;
+	}
+);
+
+// This handler resolve additional information for the item selected in
+// the completion list.
+connection.onCompletionResolve(
+	(item: CompletionItem): CompletionItem => {
+		let keyword = keywords[item.label];
+		item.documentation = `Allowed: ${keyword.allowed}`;
+		item.detail = [`Required: ${ keyword.required}  `,
+		`Parameters: ${keyword.parameters}`]
+			.join('\r')
+
+		return item;
+	}
+);
 
 function getWordAt(str, pos) {
 	str = String(str);
