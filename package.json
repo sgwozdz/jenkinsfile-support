@@ -1,8 +1,8 @@
 {
     "name": "jenkinsfile-support",
     "displayName": "JenkinsFile Support",
-    "description": "Extension provides basic syntax highlighting support.",
-    "version": "0.2.0",
+    "description": "Extension provides basic jenkinsfile support (highlighting, snippets and completion)",
+    "version": "0.4.0",
     "license": "MIT",
     "author": {
         "name": "Szymon Gwóźdź",
@@ -30,6 +30,10 @@
         "jenkinsfile",
         "jdp"
     ],
+    "activationEvents": [
+        "onLanguage:jenkinsfile"
+    ],
+    "main": "./client/out/extension",
     "contributes": {
         "languages": [
             {
@@ -59,10 +63,21 @@
         ],
         "snippets": [
             {
-              "language": "jenkinsfile",
-              "scopeName": "source.jenkins",
-              "path": "./snippets/snippets.json"
+                "language": "jenkinsfile",
+                "scopeName": "source.jenkins",
+                "path": "./snippets/snippets.json"
             }
-          ]
+        ]
+    },
+    "scripts": {
+        "compile:client": "tsc -p ./client/tsconfig.json",
+        "compile:server": "tsc -p ./server/tsconfig.json",
+        "watch:client": "tsc -w -p ./client/tsconfig.json",
+        "watch:server": "tsc -w -p ./server/tsconfig.json",
+        "compile": "npm run compile:client -and npm run compile:server"
+    },
+    "devDependencies": {
+        "@types/node": "^10.12.0",
+        "typescript": "^3.1.3"
     }
 }

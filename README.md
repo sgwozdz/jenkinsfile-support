@@ -5,9 +5,13 @@ Extension gives user basic jenkinsfile support.
 
 * syntax highlighting
 * snippets
-  
+* completion
+
 ![Functionality](images/functionality.png)
 ## Release Notes
+### 0.4.0
+- show hovers for basic keywords
+- show autocompletion for basic keywords
 ### 0.2.0
 * multiline comments
 * tmp, stg, stp snippets
