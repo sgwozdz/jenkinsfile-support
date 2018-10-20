@@ -4,9 +4,12 @@ All notable changes to the "jenkinsfile-support" extension will be documented in
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
 ## [Unreleased]
+### Empty :)
+
+## [0.4.0] - 2018-10-20
 ### Added
-- LSP - on hover action
-- LSP - auto completion
+- show hovers for basic keywords
+- show autocompletion for basic keywords
 ## [0.2.0] - 2018-10-18
 ### Added
 - multiline comments
