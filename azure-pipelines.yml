@@ -12,7 +12,10 @@ steps:
     versionSpec: '8.x'
   displayName: 'Install Node.js'
 
-- script: |
+- script: 
     npm install
+  displayName: 'Install npm packages'
+
+- script:
     npm run compile
-  displayName: 'npm install and compile'
+  displayName: 'Compile solution'
