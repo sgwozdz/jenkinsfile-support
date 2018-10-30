@@ -74,7 +74,8 @@
         "compile:server": "tsc -p ./server/tsconfig.json",
         "watch:client": "tsc -w -p ./client/tsconfig.json",
         "watch:server": "tsc -w -p ./server/tsconfig.json",
-        "compile": "npm run compile:client | npm run compile:server"
+        "compile": "npm run compile:client | npm run compile:server",
+        "postinstall": "cd server && npm install && cd ../client && npm install"
     },
     "devDependencies": {
         "@types/node": "^10.12.0",
