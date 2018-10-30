@@ -4,7 +4,6 @@ import {
 	createConnection,
 	TextDocuments,
 	ProposedFeatures,
-	InitializeParams,
 	Hover,
 	TextDocumentPositionParams,
 	MarkupKind,
@@ -74,7 +73,7 @@ const keywords: { [name: string]: { required: string, parameters: string, allowe
 
 };
 
-connection.onInitialize((params: InitializeParams) => {
+connection.onInitialize(() => {
 	return {
 		capabilities: {
 			textDocumentSync: documents.syncKind,
@@ -89,12 +88,19 @@ connection.onInitialize((params: InitializeParams) => {
 connection.onHover(
 	(_textDocumentPosition: TextDocumentPositionParams): Hover => {
 		let document = documents.get(_textDocumentPosition.textDocument.uri);
+		if (document === undefined) {
+			return {
+				contents: ""
+			};
+		}
 		let offset = document.offsetAt(_textDocumentPosition.position);
 		let text = document.getText();
 		let word = getWordAt(text, offset);
 		let desc = keywords[word];
 		if (desc == null) {
-			return null;
+			return {
+				contents: ""
+			};
 		}
 		let markdown: MarkupContent = {
 			kind: MarkupKind.Markdown,
@@ -140,7 +146,7 @@ connection.onCompletionResolve(
 	}
 );
 
-function getWordAt(str, pos) {
+function getWordAt(str: string, pos: number) {
 	str = String(str);
 	pos = Number(pos) >>> 0;
 
