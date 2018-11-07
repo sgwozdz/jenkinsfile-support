@@ -17,5 +17,6 @@ steps:
   displayName: 'Install npm packages'
 
 - script:
-    npm run compile
-  displayName: 'Compile solution'
+    npm test
+  displayName: 'Run tests'
+
