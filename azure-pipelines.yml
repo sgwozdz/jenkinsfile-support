@@ -4,8 +4,8 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 pool:
-  name: 'Hosted Ubuntu 1604'
-  vmImage: 'Ubuntu 16.04'
+  name: 'Hosted on Windows'
+  vmImage: 'VS2017-Win2016'
   demands: npm
 
 steps:
@@ -26,12 +26,6 @@ steps:
       verbose: false
       customCommand: 'run compile'
 
-- script: |
-      set -e
-      /usr/bin/Xvfb :10 -ac >> /tmp/Xvfb.out 2>&1 &
-      disown -ar
-    displayName: 'Start xvfb'
-    
 - script:
     'cd client && node ./node_modules/vscode/bin/test'
   displayName: 'Run tests'
