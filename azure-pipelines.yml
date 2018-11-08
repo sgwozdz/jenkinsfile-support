@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 pool:
-  vmImage: 'Ubuntu 16.04'
+  vmImage: 'win1803'
 
 steps:
 - task: NodeTool@0
@@ -12,10 +12,19 @@ steps:
     versionSpec: '8.x'
   displayName: 'Install Node.js'
 
-- script: 
-    npm install
-  displayName: 'Install npm packages'
+- task: Npm@1
+  displayName: 'Install dependencies'
+  inputs:
+      verbose: false
 
-- script:
-    npm run compile
-  displayName: 'Compile solution'
+- task: Npm@1
+  displayName: 'Compile sources'
+  inputs:
+      command: custom
+      verbose: false
+      customCommand: 'run compile'
+
+- task: Npm@0
+  displayName: 'Run tests'
+  inputs:
+    command: test
