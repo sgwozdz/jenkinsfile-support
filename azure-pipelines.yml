@@ -24,6 +24,4 @@ steps:
       verbose: false
       customCommand: 'run compile'
 
-- script:
-  npm test
-  
+- script: npm test
