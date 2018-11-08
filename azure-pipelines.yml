@@ -24,4 +24,7 @@ steps:
       verbose: false
       customCommand: 'run compile'
 
-- script: npm test
+- task: Npm@0
+  displayName: 'Run tests'
+  inputs:
+    command: test

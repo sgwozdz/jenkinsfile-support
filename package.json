@@ -76,7 +76,7 @@
         "watch:server": "tsc -w -p ./server/",
         "compile": "npm run compile:client | npm run compile:server",
         "postinstall": "cd server && npm install && cd ../client && npm install",
-        "test": "npm run compile && cd client && node ./node_modules/vscode/bin/test"
+        "test": "cd client && node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
         "@types/node": "10.12.3",
