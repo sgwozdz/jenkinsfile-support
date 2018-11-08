@@ -1,4 +1,5 @@
-# jenkinsfile-support [![Version][version-badge]][version] [![Build Status][build-badge]][build] [![Installs][installs-badge]][installs]
+# jenkinsfile-support
+[![Version][version-badge]][version] [![Build Status][build-badge]][build] [![Installs][installs-badge]][installs]
 
 [version-badge]: https://vsmarketplacebadge.apphb.com/version/ivory-lab.jenkinsfile-support.svg
 [version]: https://marketplace.visualstudio.com/items?itemName=ivory-lab.jenkinsfile-support
