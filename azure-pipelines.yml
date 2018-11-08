@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 pool:
-  vmImage: 'ubuntu-16.04'
+  vmImage: 'win1803'
 
 steps:
 - task: NodeTool@0
@@ -24,8 +24,6 @@ steps:
       verbose: false
       customCommand: 'run compile'
 
-- task: Npm@0
-  displayName: 'Run tests'
-  inputs:
-      command: test
-      verbose: true
+- script:
+  npm test
+  
