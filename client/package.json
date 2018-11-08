@@ -16,8 +16,8 @@
 		"postinstall": "vscode-install"
 	},
 	"dependencies": {
-		"vscode": "^1.1.21",
-		"vscode-languageclient": "^5.1.1",
-		"mocha": "^5.2.0"
+		"vscode": "1.1.21",
+		"vscode-languageclient": "5.1.1",
+		"mocha": "5.2.0"
 	}
 }

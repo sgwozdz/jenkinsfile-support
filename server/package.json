@@ -12,6 +12,6 @@
 		"node": "*"
 	},
 	"dependencies": {
-		"vscode-languageserver": "^5.1.0"
+		"vscode-languageserver": "5.1.0"
 	}
 }
