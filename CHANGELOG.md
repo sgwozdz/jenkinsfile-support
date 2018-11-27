@@ -6,6 +6,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 ### Empty :)
 
+## [0.4.1] - 2018-11-27
+## Security
+- event-strem security update
 ## [0.4.0] - 2018-10-20
 ### Added
 - show hovers for basic keywords
