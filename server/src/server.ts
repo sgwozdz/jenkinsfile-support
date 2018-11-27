@@ -9,7 +9,10 @@ import {
 	MarkupKind,
 	MarkupContent,
 	CompletionItem,
-	CompletionItemKind
+	CompletionItemKind,
+	TextDocument,
+	Diagnostic,
+	DiagnosticSeverity
 } from 'vscode-languageserver';
 
 let connection = createConnection(ProposedFeatures.all);
@@ -146,6 +149,10 @@ connection.onCompletionResolve(
 	}
 );
 
+documents.onDidChangeContent(change => {
+	validateTextDocument(change.document);
+});
+
 function getWordAt(str: string, pos: number) {
 	str = String(str);
 	pos = Number(pos) >>> 0;
@@ -158,6 +165,47 @@ function getWordAt(str: string, pos: number) {
 	}
 
 	return str.slice(left, right + pos);
+}
+
+function validateTextDocument(textDocument: TextDocument) {
+	let text = textDocument.getText();
+
+	//TODO: apply custom patterns
+	let pattern = /\b[A-Z]{2,}\b/g;
+	let m: RegExpExecArray | null;
+
+	let diagnostics: Diagnostic[] = [];
+	while ((m = pattern.exec(text))) {
+		let diagnosic: Diagnostic = {
+			severity: DiagnosticSeverity.Warning,
+			range: {
+				start: textDocument.positionAt(m.index),
+				end: textDocument.positionAt(m.index + m[0].length)
+			},
+			message: `${m[0]} is all uppercase.`,
+			source: 'ex'
+		};
+			diagnosic.relatedInformation = [
+				{
+					location: {
+						uri: textDocument.uri,
+						range: Object.assign({}, diagnosic.range)
+					},
+					message: 'Spelling matters'
+				},
+				{
+					location: {
+						uri: textDocument.uri,
+						range: Object.assign({}, diagnosic.range)
+					},
+					message: 'Particularly for names'
+				}
+			];
+		diagnostics.push(diagnosic);
+	}
+
+	// Send the computed diagnostics to VSCode.
+	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 }
 
 documents.listen(connection);
