@@ -6,6 +6,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 ### Empty :)
 
+## [0.4.2] - 2019-02-01
+## Changed
+- extended snippet support
 ## [0.4.1] - 2018-11-27
 ## Security
 - event-strem security update

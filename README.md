@@ -9,6 +9,8 @@ Extension gives user basic jenkinsfile support.
 
 ![Functionality](images/functionality.png)
 ## Release Notes
+### 0.4.2
+- extended snippet support
 ### 0.4.1
 - event-stream security update
 ### 0.4.0
