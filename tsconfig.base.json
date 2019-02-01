@@ -4,5 +4,8 @@
         "noImplicitReturns": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true
-    }
+    },
+    "exclude": [
+        ".vscode-test"
+    ]
 }

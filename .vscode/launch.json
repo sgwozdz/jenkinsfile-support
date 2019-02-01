@@ -11,9 +11,25 @@
             "request": "launch",
             "runtimeExecutable": "${execPath}",
             "args": [
-                "--extensionDevelopmentPath=${workspaceFolder}"
+                "--extensionDevelopmentPath=${workspaceFolder}/client"
             ],
-            "outFiles": ["${workspaceFolder}/client/out/**/*.js"]
+            "outFiles": [
+                "${workspaceFolder}/client/out/**/*.js"
+            ]
+        },
+        {
+            "name": "Extension Tests",
+            "type": "extensionHost",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}/client",
+                "--extensionTestsPath=${workspaceFolder}/client/out/test"
+            ],
+            "outFiles": [
+                "${workspaceFolder}/client/out/test/**/*.js"
+            ],
+            "preLaunchTask": "compile"
         },
         {
 			"type": "node",
@@ -21,8 +37,8 @@
 			"name": "Attach to Server",
 			"port": 6009,
 			"restart": true,
-			"outFiles": ["${workspaceFolder}/server/out/**/*.js"]
-		},
+            "outFiles": ["${workspaceFolder}/server/out/**/*.js"]
+		}
     ],
     "compounds": [
 		{

@@ -2,7 +2,7 @@
 
 import * as path from 'path';
 import { workspace, ExtensionContext } from 'vscode';
-import{
+import {
 	LanguageClient,
 	LanguageClientOptions,
 	ServerOptions,
@@ -15,10 +15,27 @@ export function activate(context: ExtensionContext) {
 	let serverModule = context.asAbsolutePath(
 		path.join('server', 'out', 'server.js')
 	);
-	
-	let debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
 
-	let serverOptions: ServerOptions = {
+	client = new LanguageClient(
+		'lsp-client',
+		'Jenkinsfile lsp client',
+		getServerOptions(serverModule),
+		getClientOptions()
+	);
+
+	client.start();
+}
+
+export function getDebugOptions() {
+	return {
+		execArgv: ['--nolazy', '--inspect=6009']
+	};
+}
+
+export function getServerOptions(serverModule: string): ServerOptions {
+	let debugOptions = getDebugOptions();
+
+	return {
 		run: { module: serverModule, transport: TransportKind.ipc },
 		debug: {
 			module: serverModule,
@@ -26,25 +43,18 @@ export function activate(context: ExtensionContext) {
 			options: debugOptions
 		}
 	};
+}
 
-	let clientOptions: LanguageClientOptions = {
+export function getClientOptions(): LanguageClientOptions {
+	return {
 		documentSelector: [{ scheme: 'file', language: 'jenkinsfile' }],
 		synchronize: {
 			fileEvents: workspace.createFileSystemWatcher('**/.clientrc')
 		}
 	};
-
-	client = new LanguageClient(
-		'lsp-client',
-		'Jenkinsfile lsp client',
-		serverOptions,
-		clientOptions
-	);
-
-	client.start();
 }
 
-export function deactivate(): Thenable<void>|undefined {
+export function deactivate(): Thenable<void> | undefined {
 	if (!client) {
 		return undefined;
 	}
