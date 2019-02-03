@@ -122,9 +122,9 @@ connection.onCompletion(
 		// The pass parameter contains the position of the text document in
 		// which code complete got requested. For the example we ignore this
 		// info and always provide the same completion items.
-		let list : CompletionItem[] = [];
+		let list: CompletionItem[] = [];
 
-		for(let keyword in keywords){
+		for (let keyword in keywords) {
 			list.push({
 				label: keyword,
 				kind: CompletionItemKind.Keyword
@@ -141,7 +141,7 @@ connection.onCompletionResolve(
 	(item: CompletionItem): CompletionItem => {
 		let keyword = keywords[item.label];
 		item.documentation = `Allowed: ${keyword.allowed}`;
-		item.detail = [`Required: ${ keyword.required}  `,
+		item.detail = [`Required: ${keyword.required}  `,
 		`Parameters: ${keyword.parameters}`]
 			.join('\r')
 
@@ -167,42 +167,50 @@ function getWordAt(str: string, pos: number) {
 	return str.slice(left, right + pos);
 }
 
+function GetAllowOnceDiagnostics(allowOncePattern: RegExp, text: string, textDocument: TextDocument, diagnostics: Diagnostic[]) {
+	let n: RegExpExecArray | null = allowOncePattern.exec(text);
+	while (n = allowOncePattern.exec(text)) {
+		let diagnostic: Diagnostic = {
+			severity: DiagnosticSeverity.Error,
+			range: {
+				start: textDocument.positionAt(n.index),
+				end: textDocument.positionAt(n.index + n[0].length)
+			},
+			message: `It is not allwed to use ${n[0]} more than once`
+		};
+		diagnostics.push(diagnostic);
+	}
+}
+
 function validateTextDocument(textDocument: TextDocument) {
 	let text = textDocument.getText();
+	let diagnostics: Diagnostic[] = [];
 
 	//TODO: apply custom patterns
-	let pattern = /\b[A-Z]{2,}\b/g;
-	let m: RegExpExecArray | null;
-
-	let diagnostics: Diagnostic[] = [];
-	while ((m = pattern.exec(text))) {
-		let diagnosic: Diagnostic = {
-			severity: DiagnosticSeverity.Warning,
+	let startWithPipelineBlock = /^pipeline/g;
+	let n1 : RegExpExecArray | null = startWithPipelineBlock.exec(text);
+	if (n1 == null) {
+		let diagnostic: Diagnostic = {
+			severity: DiagnosticSeverity.Error,
 			range: {
-				start: textDocument.positionAt(m.index),
-				end: textDocument.positionAt(m.index + m[0].length)
+				start: textDocument.positionAt(0),
+				end: textDocument.positionAt(1)
 			},
-			message: `${m[0]} is all uppercase.`,
-			source: 'ex'
-		};
-			diagnosic.relatedInformation = [
-				{
-					location: {
-						uri: textDocument.uri,
-						range: Object.assign({}, diagnosic.range)
-					},
-					message: 'Spelling matters'
-				},
-				{
-					location: {
-						uri: textDocument.uri,
-						range: Object.assign({}, diagnosic.range)
-					},
-					message: 'Particularly for names'
-				}
-			];
-		diagnostics.push(diagnosic);
+			message: `Script must start with pipeline block`
+		}
+		diagnostics.push(diagnostic);
 	}
+
+	let allowOncePipelinesBlock = /pipeline((?=[^']*(?:'[^']*'[^']*)*$)(?=[^"]*(?:"[^"]*"[^"]*)*$)(?=[^\/]*(?:\/[^\/]*\/[^\/]*)*$))/g;
+	let allowOnceStagesBlock = /stages((?=[^']*(?:'[^']*'[^']*)*$)(?=[^"]*(?:"[^"]*"[^"]*)*$)(?=[^\/]*(?:\/[^\/]*\/[^\/]*)*$))/g;
+	let allowOnceOptionsBlock = /options((?=[^']*(?:'[^']*'[^']*)*$)(?=[^"]*(?:"[^"]*"[^"]*)*$)(?=[^\/]*(?:\/[^\/]*\/[^\/]*)*$))/g;
+	let allowOnceParametersBlock = /parameters((?=[^']*(?:'[^']*'[^']*)*$)(?=[^"]*(?:"[^"]*"[^"]*)*$)(?=[^\/]*(?:\/[^\/]*\/[^\/]*)*$))/g;
+	let allowOnceTriggersBlock = /triggers((?=[^']*(?:'[^']*'[^']*)*$)(?=[^"]*(?:"[^"]*"[^"]*)*$)(?=[^\/]*(?:\/[^\/]*\/[^\/]*)*$))/g;
+	GetAllowOnceDiagnostics(allowOncePipelinesBlock, text, textDocument, diagnostics);
+	GetAllowOnceDiagnostics(allowOnceStagesBlock, text, textDocument, diagnostics);
+	GetAllowOnceDiagnostics(allowOnceOptionsBlock, text, textDocument, diagnostics);
+	GetAllowOnceDiagnostics(allowOnceParametersBlock, text, textDocument, diagnostics);
+	GetAllowOnceDiagnostics(allowOnceTriggersBlock, text, textDocument, diagnostics);
 
 	// Send the computed diagnostics to VSCode.
 	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
