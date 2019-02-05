@@ -14,6 +14,7 @@ import {
 	Diagnostic,
 	DiagnosticSeverity
 } from 'vscode-languageserver';
+import * as voca from 'voca';
 
 let connection = createConnection(ProposedFeatures.all);
 let documents: TextDocuments = new TextDocuments();
@@ -176,17 +177,38 @@ function GetAllowOnceDiagnostics(allowOncePattern: RegExp, text: string, textDoc
 				start: textDocument.positionAt(n.index),
 				end: textDocument.positionAt(n.index + n[0].length)
 			},
-			message: `It is not allwed to use ${n[0]} more than once`
+			message: `It is not allowed to use ${n[0]} more than once`
 		};
 		diagnostics.push(diagnostic);
 	}
 }
 
+function GetBracketsDiagnostics(openingBracket: string, closingBracket: string, text: string, textDocument: TextDocument, diagnostics: Diagnostic[]) {
+	let openingBrackets =  voca.countSubstrings(text, openingBracket);
+	let closingBrackets = voca.countSubstrings(text, closingBracket);
+
+	if (openingBrackets !== closingBrackets) {
+		let diagnostic: Diagnostic = {
+			severity: DiagnosticSeverity.Error,
+			range: {
+				start: textDocument.positionAt(0),
+				end: textDocument.positionAt(1)
+			},
+			message: openingBracket + closingBracket + ` brackets do not match`
+		};
+		diagnostics.push(diagnostic);
+	}
+}
+
+
 function validateTextDocument(textDocument: TextDocument) {
 	let text = textDocument.getText();
 	let diagnostics: Diagnostic[] = [];
 
-	//TODO: apply custom patterns
+	//TODO: do it better
+	GetBracketsDiagnostics('{', '}', text, textDocument, diagnostics);
+	GetBracketsDiagnostics('(', ')', text, textDocument, diagnostics);
+	
 	let startWithPipelineBlock = /^pipeline/g;
 	let n1 : RegExpExecArray | null = startWithPipelineBlock.exec(text);
 	if (n1 == null) {
@@ -196,7 +218,7 @@ function validateTextDocument(textDocument: TextDocument) {
 				start: textDocument.positionAt(0),
 				end: textDocument.positionAt(1)
 			},
-			message: `Script must start with pipeline block`
+			message: `Script must begin with pipeline block`
 		}
 		diagnostics.push(diagnostic);
 	}
