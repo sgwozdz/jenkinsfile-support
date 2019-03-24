@@ -70,15 +70,19 @@
         ]
     },
     "scripts": {
-        "compile:client": "tsc -p ./client/tsconfig.json",
-        "compile:server": "tsc -p ./server/tsconfig.json",
-        "watch:client": "tsc -w -p ./client/tsconfig.json",
-        "watch:server": "tsc -w -p ./server/tsconfig.json",
+        "compile:client": "tsc -p ./client/",
+        "compile:server": "tsc -p ./server/",
+        "watch:client": "tsc -w -p ./client/",
+        "watch:server": "tsc -w -p ./server/",
         "compile": "npm run compile:client | npm run compile:server",
-        "postinstall": "cd server && npm install && cd ../client && npm install"
+        "postinstall": "cd server && npm install && cd ../client && npm install",
+        "test": "cd client && node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
-        "@types/node": "^10.12.21",
-        "typescript": "^3.3.1"
+        "@types/node": "10.12.21",
+        "@types/mocha": "2.2.42",
+        "@types/chai": "4.1.7",
+        "typescript": "3.3.1",
+        "chai": "4.2.0"
     }
 }
