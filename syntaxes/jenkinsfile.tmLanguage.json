@@ -22,7 +22,16 @@
 			"include": "#variables"
 		},
 		{
-			"include": "#strings"
+			"include": "#string-single-quote-multiline"
+		},
+		{
+			"include": "#string-double-quote-multiline"
+		},
+		{
+			"include": "#string-single-quote"
+		},
+		{
+			"include": "#string-double-quote"
 		},
 		{
 			"include": "#comment"
@@ -77,20 +86,117 @@
 				}
 			]
 		},
-		"strings": {
-			"name": "string.quoted.double.jenkinsfile",
-			"begin": "(\"|')",
-			"end": "(\"|')",
+		"string-single-quote": {
+			"name": "string.quoted.double.jenkins",
+			"begin": "(?<!'')'",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.jenkins"
+				}
+			},
+			"end": "(')|((?:[^\\\\\\n])$)",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.definition.string.end.jenkins"
+				},
+				"2": {
+					"name": "invalid.illegal.newline.jenkins"
+				}
+			},
 			"patterns": [
 				{
-					"name": "constant.character.escape.jenkinsfile",
-					"match": "\\\\."
+					"include": "#string-character-escape"
 				},
 				{
-					"name": "variable.parameter.jenkinsfile",
-					"match": "(?<=\\${).*?(?=})"
+					"include": "#variable-usage"
 				}
 			]
+		},
+		"string-double-quote": {
+			"name": "string.quoted.double.jenkins",
+			"begin": "(?<!\"\")\"",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.jenkins"
+				}
+			},
+			"end": "(\")|((?:[^\\\\\\n])$)",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.definition.string.end.jenkins"
+				},
+				"2": {
+					"name": "invalid.illegal.newline.jenkins"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#string-character-escape"
+				},
+				{
+					"include": "#variable-usage"
+				}
+			]
+		},
+		"string-single-quote-multiline": {
+			"name": "string.quoted.double.jenkins",
+			"begin": "'''",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.jenkins"
+				}
+			},
+			"end": "'''",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.definition.string.end.jenkins"
+				},
+				"2": {
+					"name": "invalid.illegal.newline.jenkins"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#string-character-escape"
+				},
+				{
+					"include": "#variable-usage"
+				}
+			]
+		},
+		"string-double-quote-multiline": {
+			"name": "string.quoted.double.jenkins",
+			"begin": "\"\"\"",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.jenkins"
+				}
+			},
+			"end": "\"\"\"",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.definition.string.end.jenkins"
+				},
+				"2": {
+					"name": "invalid.illegal.newline.jenkins"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#string-character-escape"
+				},
+				{
+					"include": "#variable-usage"
+				}
+			]
+		},
+		"string-character-escape": {
+			"name": "constant.character.escape.jenkinss",
+			"match": "\\\\(['\"\\\\0abfnrtv]|x[0-9a-fA-F]{1,4}|U[0-9a-fA-F]{8}|u[0-9a-fA-F]{4})"
+		},
+		"variable-usage": {
+			"name": "variable.parameter.jenkinsfile",
+			"match": "(?<=\\${).*?(?=})"
 		},
 		"comment": {
 			"patterns": [

@@ -13,15 +13,16 @@ pipeline {
                     echo 'Hello, Jenkins' */
                     s/*h 'mvn --version'*/
 
-                    def thing = """#!/usr/bin/env bash
-                    do stuff
-                    rm -rf /rpmPackageDir/*.key
-                    do more stuff
-
+                    def thing = '''#!/usr/bin/env bash
+                                do stuff
+                                rm -rf /rpmPackageDir/*.key
+                                do more stuff ${xyz}
+                                '''
+                    echo 'Something!'
                     "unix:///var/run/docker.sock"
                     "foo'
-                    'bar"
-                    ript: 'curl -g -s ' + jobURL + ' | python -c "import sys, json; 
+                    "sadas 'asda' "
+                    sript: 'curl -g -s ' + jobURL + ' | python -c "import sys, json; 
                     input = json.load(sys.stdin); print input[\'displayName\'][input[\'displayName\'].index(\'v\') + 1:]"'
                 }
             }
