@@ -20,6 +20,9 @@ Extension gives user basic jenkinsfile support.
 
 ## Release Notes
 
+### 0.4.4
+- syntax highlighting improvements for comments and strings
+
 ### 0.4.3
 - update extension libraries
 
