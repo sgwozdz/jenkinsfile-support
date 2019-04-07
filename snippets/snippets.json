@@ -1,19 +1,91 @@
 {
     "source.jenkins": {
-        "template": {
-            "prefix" : "tmp",
-            "body": "pipeline {\n\tagent any\n\tstages {\n\t\tstage('${1:stage}') {\n\t\t\tsteps {\n\t\t\t\tstep {\n\t\t\t}\n\t\t}\n\t}\n}",
-            "description": "basic template"
+        "pipeline": {
+            "prefix": "pipeline",
+            "body": [
+              "pipeline{",
+              "    agent{",
+              "        label \"${node}\"",
+              "    }",
+              "    stages{",
+              "        stage(\"${A}\"){",
+              "            steps{",
+              "                echo \"========executing ${A}========\"",
+              "            }",
+              "            post{",
+              "                always{",
+              "                    echo \"========always========\"",
+              "                }",
+              "                success{",
+              "                    echo \"========${A} executed successfully========\"",
+              "                }",
+              "                failure{",
+              "                    echo \"========${A} execution failed========\"",
+              "                }",
+              "            }",
+              "        }",
+              "    }",
+              "    post{",
+              "        always{",
+              "            echo \"========always========\"",
+              "        }",
+              "        success{",
+              "            echo \"========pipeline executed successfully ========\"",
+              "        }",
+              "        failure{",
+              "            echo \"========pipeline execution failed========\"",
+              "        }",
+              "    }",
+              "}"
+            ],
+            "description": "pipeline"
+        },
+        "echo": {
+            "prefix": "echo",
+            "body": [
+              "echo \"====++++${something}++++====\""
+            ],
+            "description": "echo"
         },
         "stage": {
-            "prefix": "stg",
-            "body": "stage('${1:stage}'){\n\n}",
-            "description": "create stage"
+            "prefix": "stage",
+            "body": [
+              "stage(\"${A}\"){",
+              "    steps{",
+              "        echo \"====++++executing ${A}++++====\"",
+              "    }",
+              "    post{",
+              "        always{",
+              "            echo \"====++++always++++====\"",
+              "        }",
+              "        success{",
+              "            echo \"====++++${A} executed succesfully++++====\"",
+              "        }",
+              "        failure{",
+              "            echo \"====++++${A} execution failed++++====\"",
+              "        }",
+              "",
+              "    }",
+              "}"
+            ],
+            "description": "stage"
         },
-        "step": {
-            "prefix": "stp",
-            "body": "step('${1:step}'){\n\n}",
-            "description": "create step"
+        "post": {
+            "prefix": "post",
+            "body": [
+              "post{",
+              "    always{",
+              "        echo \"====++++always++++====\"",
+              "    }",
+              "    success{",
+              "        echo \"====++++only when successful++++====\"",
+              "    }",
+              "    failure{",
+              "        echo \"====++++only when failed++++====\"",
+              "    }",
+              "}"
+            ],
+            "description": "post"
         }
     }
 }

@@ -2,7 +2,7 @@
     "name": "jenkinsfile-support",
     "displayName": "JenkinsFile Support",
     "description": "Extension provides basic jenkinsfile support (highlighting, snippets and completion)",
-    "version": "0.4.1",
+    "version": "0.4.3",
     "license": "MIT",
     "author": {
         "name": "Szymon Gwóźdź",
@@ -79,10 +79,10 @@
         "test": "cd client && node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
-        "@types/node": "10.12.3",
+        "@types/node": "10.12.21",
         "@types/mocha": "2.2.42",
         "@types/chai": "4.1.7",
-        "typescript": "3.1.3",
+        "typescript": "3.3.1",
         "chai": "4.2.0"
     }
 }
