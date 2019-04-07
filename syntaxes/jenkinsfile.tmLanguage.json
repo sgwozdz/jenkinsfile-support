@@ -1,6 +1,7 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "jenkins",
+	"scopeName": "source.jenkins",
 	"patterns": [
 		{
 			"include": "#keywords"
@@ -24,7 +25,7 @@
 			"include": "#strings"
 		},
 		{
-			"include": "#comments"
+			"include": "#comment"
 		}
 	],
 	"repository": {
@@ -91,19 +92,45 @@
 				}
 			]
 		},
-		"comments": {
+		"comment": {
 			"patterns": [
 				{
-					"name": "comment.block",
+					"name": "comment.block.jenkins",
 					"begin": "/\\*",
-					"end": "\\*/"
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.comment.jenkins"
+						}
+					},
+					"end": "\\*/",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.comment.jenkins"
+						}
+					}
 				},
 				{
-					"name": "comment.line.double-slash.jenkinsfile",
-					"match": "((//).*$\n?)"
+					"begin": "(^\\s+)?(?=//)",
+					"beginCaptures": {
+						"1": {
+							"name": "punctuation.whitespace.comment.leading.jenkins"
+						}
+					},
+					"end": "(?=$)",
+					"patterns": [
+						{
+							"name": "comment.line.double-slash.jenkins",
+							"begin": "(?<!/)//(?:(?!/)|(?=//))",
+							"beginCaptures": {
+								"0": {
+									"name": "punctuation.definition.comment.jenkins"
+								}
+							},
+							"end": "(?=$)"
+						}
+					]
 				}
 			]
 		}
-	},
-	"scopeName": "source.jenkins"
+	}
 }
