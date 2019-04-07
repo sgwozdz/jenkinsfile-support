@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 ### Empty :)
 
+## [0.4.4] - 2019-04-07
+### Changed
+- syntax highlighting improvements for comments and strings
+
 ## [0.4.3] - 2019-02-03
 ### Changed
 - update extension libraries
@@ -16,7 +20,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [0.4.1] - 2018-11-27
 ### Security
-- event-strem security update
+- event-stream security update
 
 ## [0.4.0] - 2018-10-20
 ### Added
