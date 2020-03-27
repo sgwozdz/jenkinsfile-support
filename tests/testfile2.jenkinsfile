@@ -12,7 +12,6 @@ pipeline {
               /*  step {
                     echo 'Hello, Jenkins' */
                     s/*h 'mvn --version'*/
-                }
             }
         }
         stage('Example Test') {
