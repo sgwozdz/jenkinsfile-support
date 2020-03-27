@@ -15,6 +15,8 @@ import {
 
 let connection = createConnection(ProposedFeatures.all);
 let documents: TextDocuments = new TextDocuments();
+const simpleKeywords =  ['true', 'false', 'env', 'if', 'else', 'try', 'catch', 'finally', 'throw', 'echo', 'always',
+'changed','fixed','regression','aborted','failure','success','unstable','cleanup', 'step', 'matrix', 'parallel'];
 const keywords: { [name: string]: { required: string, parameters: string, allowed: string } } = {
 	agent: {
 		required: 'Yes',
@@ -71,7 +73,6 @@ const keywords: { [name: string]: { required: string, parameters: string, allowe
 		parameters: 'None',
 		allowed: 'Inside a stage directive'
 	}
-
 };
 
 connection.onInitialize(() => {
@@ -121,6 +122,13 @@ connection.onCompletion(
 		// which code complete got requested. For the example we ignore this
 		// info and always provide the same completion items.
 		let list: CompletionItem[] = [];
+
+		for (let keyword of simpleKeywords) {
+			list.push({
+				label: keyword,
+				kind: CompletionItemKind.Keyword
+			})
+		}
 
 		for (let keyword in keywords) {
 			list.push({
