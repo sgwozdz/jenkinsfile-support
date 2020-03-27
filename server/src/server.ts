@@ -1,5 +1,3 @@
-'use strict';
-
 import {
 	createConnection,
 	TextDocuments,
@@ -14,7 +12,6 @@ import {
 	Diagnostic,
 	DiagnosticSeverity
 } from 'vscode-languageserver';
-import * as voca from 'voca';
 
 let connection = createConnection(ProposedFeatures.all);
 let documents: TextDocuments = new TextDocuments();
@@ -168,7 +165,7 @@ function getWordAt(str: string, pos: number) {
 	return str.slice(left, right + pos);
 }
 
-function GetAllowOnceDiagnostics(allowOncePattern: RegExp, text: string, textDocument: TextDocument, diagnostics: Diagnostic[]) {
+function getAllowOnceDiagnostics(allowOncePattern: RegExp, text: string, textDocument: TextDocument, diagnostics: Diagnostic[]) {
 	let n: RegExpExecArray | null = allowOncePattern.exec(text);
 	while (n = allowOncePattern.exec(text)) {
 		let diagnostic: Diagnostic = {
@@ -183,34 +180,62 @@ function GetAllowOnceDiagnostics(allowOncePattern: RegExp, text: string, textDoc
 	}
 }
 
-function GetBracketsDiagnostics(openingBracket: string, closingBracket: string, text: string, textDocument: TextDocument, diagnostics: Diagnostic[]) {
-	let openingBrackets =  voca.countSubstrings(text, openingBracket);
-	let closingBrackets = voca.countSubstrings(text, closingBracket);
+function getBracketsDiagnostics(text: string, textDocument: TextDocument, diagnostics: Diagnostic[]) {
+	var stack = [];
+	var openingBrackets = ['(', '{', '['];
+	var closingBrackets = [')', '}', ']'];
 
-	if (openingBrackets !== closingBrackets) {
-		let diagnostic: Diagnostic = {
-			severity: DiagnosticSeverity.Error,
-			range: {
-				start: textDocument.positionAt(0),
-				end: textDocument.positionAt(1)
-			},
-			message: openingBracket + closingBracket + ` brackets do not match`
-		};
-		diagnostics.push(diagnostic);
+	for (let i = 0; i < text.length; i++) {
+		var char = text[i];
+		if (openingBrackets.indexOf(char) > -1) {
+			stack.push({char, i});
+		}
+		if (closingBrackets.indexOf(char) > -1) {
+			var top = stack.pop();
+			if (top === undefined || !matches(top.char, char, openingBrackets, closingBrackets)) {
+				addDiagnostic(textDocument, i, i + char.length, "Brackets do not match", diagnostics);
+			}
+		}
+	}
+
+	for (let i = 0; i < stack.length; i++) {
+		addDiagnostic(textDocument, stack[i].i, stack[i].i + stack[i].char.length, "Brackets do not match", diagnostics);
 	}
 }
 
+function addDiagnostic(textDocument: TextDocument, start: number, end: number, message: string, diagnostics: Diagnostic[]) {
+	let diagnostic: Diagnostic = {
+		severity: DiagnosticSeverity.Error,
+		range: {
+			start: textDocument.positionAt(start),
+			end: textDocument.positionAt(end)
+		},
+		message: message
+	};
+	diagnostics.push(diagnostic);
+}
+
+function matches(top: string | undefined, char: string, openingBrackets: string[], closingBrackets: string[]) {
+	for (let j = 0; j < openingBrackets.length; j++) {
+		if (openingBrackets[j] === String(top) &&
+			closingBrackets[j] === char) {
+			return true;
+		}
+	}
+	return false;
+}
 
 function validateTextDocument(textDocument: TextDocument) {
-	let text = textDocument.getText();
 	let diagnostics: Diagnostic[] = [];
-
-	//TODO: do it better
-	GetBracketsDiagnostics('{', '}', text, textDocument, diagnostics);
-	GetBracketsDiagnostics('(', ')', text, textDocument, diagnostics);
+	let text = textDocument.getText();
+	var textWithoutComments = text.replace(/\/\*[^*]*(\*\/|$)|\/\/.*/g, function (selection) {
+		return new Array(selection.length + 1).join("~");
+	});
 	
+	getBracketsDiagnostics(textWithoutComments, textDocument, diagnostics);
+
 	let startWithPipelineBlock = /^pipeline/g;
-	let n1 : RegExpExecArray | null = startWithPipelineBlock.exec(text);
+	let n1: RegExpExecArray | null = startWithPipelineBlock.exec(textWithoutComments);
 	if (n1 == null) {
 		let diagnostic: Diagnostic = {
 			severity: DiagnosticSeverity.Error,
@@ -228,11 +253,11 @@ function validateTextDocument(textDocument: TextDocument) {
 	let allowOnceOptionsBlock = /options((?=[^']*(?:'[^']*'[^']*)*$)(?=[^"]*(?:"[^"]*"[^"]*)*$)(?=[^\/]*(?:\/[^\/]*\/[^\/]*)*$))/g;
 	let allowOnceParametersBlock = /parameters((?=[^']*(?:'[^']*'[^']*)*$)(?=[^"]*(?:"[^"]*"[^"]*)*$)(?=[^\/]*(?:\/[^\/]*\/[^\/]*)*$))/g;
 	let allowOnceTriggersBlock = /triggers((?=[^']*(?:'[^']*'[^']*)*$)(?=[^"]*(?:"[^"]*"[^"]*)*$)(?=[^\/]*(?:\/[^\/]*\/[^\/]*)*$))/g;
-	GetAllowOnceDiagnostics(allowOncePipelinesBlock, text, textDocument, diagnostics);
-	GetAllowOnceDiagnostics(allowOnceStagesBlock, text, textDocument, diagnostics);
-	GetAllowOnceDiagnostics(allowOnceOptionsBlock, text, textDocument, diagnostics);
-	GetAllowOnceDiagnostics(allowOnceParametersBlock, text, textDocument, diagnostics);
-	GetAllowOnceDiagnostics(allowOnceTriggersBlock, text, textDocument, diagnostics);
+	getAllowOnceDiagnostics(allowOncePipelinesBlock, textWithoutComments, textDocument, diagnostics);
+	getAllowOnceDiagnostics(allowOnceStagesBlock, textWithoutComments, textDocument, diagnostics);
+	getAllowOnceDiagnostics(allowOnceOptionsBlock, textWithoutComments, textDocument, diagnostics);
+	getAllowOnceDiagnostics(allowOnceParametersBlock, textWithoutComments, textDocument, diagnostics);
+	getAllowOnceDiagnostics(allowOnceTriggersBlock, textWithoutComments, textDocument, diagnostics);
 
 	// Send the computed diagnostics to VSCode.
 	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
