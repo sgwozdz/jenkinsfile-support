@@ -1,5 +1,3 @@
-'use strict';
-
 import {
 	createConnection,
 	TextDocuments,
@@ -9,7 +7,10 @@ import {
 	MarkupKind,
 	MarkupContent,
 	CompletionItem,
-	CompletionItemKind
+	CompletionItemKind,
+	TextDocument,
+	Diagnostic,
+	DiagnosticSeverity
 } from 'vscode-languageserver';
 
 let connection = createConnection(ProposedFeatures.all);
@@ -119,9 +120,9 @@ connection.onCompletion(
 		// The pass parameter contains the position of the text document in
 		// which code complete got requested. For the example we ignore this
 		// info and always provide the same completion items.
-		let list : CompletionItem[] = [];
+		let list: CompletionItem[] = [];
 
-		for(let keyword in keywords){
+		for (let keyword in keywords) {
 			list.push({
 				label: keyword,
 				kind: CompletionItemKind.Keyword
@@ -138,13 +139,17 @@ connection.onCompletionResolve(
 	(item: CompletionItem): CompletionItem => {
 		let keyword = keywords[item.label];
 		item.documentation = `Allowed: ${keyword.allowed}`;
-		item.detail = [`Required: ${ keyword.required}  `,
+		item.detail = [`Required: ${keyword.required}  `,
 		`Parameters: ${keyword.parameters}`]
 			.join('\r')
 
 		return item;
 	}
 );
+
+documents.onDidChangeContent(change => {
+	validateTextDocument(change.document);
+});
 
 function getWordAt(str: string, pos: number) {
 	str = String(str);
@@ -158,6 +163,104 @@ function getWordAt(str: string, pos: number) {
 	}
 
 	return str.slice(left, right + pos);
+}
+
+function getAllowOnceDiagnostics(allowOncePattern: RegExp, text: string, textDocument: TextDocument, diagnostics: Diagnostic[]) {
+	let n: RegExpExecArray | null = allowOncePattern.exec(text);
+	while (n = allowOncePattern.exec(text)) {
+		let diagnostic: Diagnostic = {
+			severity: DiagnosticSeverity.Error,
+			range: {
+				start: textDocument.positionAt(n.index),
+				end: textDocument.positionAt(n.index + n[0].length)
+			},
+			message: `It is not allowed to use ${n[0]} more than once`
+		};
+		diagnostics.push(diagnostic);
+	}
+}
+
+function getBracketsDiagnostics(text: string, textDocument: TextDocument, diagnostics: Diagnostic[]) {
+	var stack = [];
+	var openingBrackets = ['(', '{', '['];
+	var closingBrackets = [')', '}', ']'];
+
+	for (let i = 0; i < text.length; i++) {
+		var char = text[i];
+		if (openingBrackets.indexOf(char) > -1) {
+			stack.push({char, i});
+		}
+		if (closingBrackets.indexOf(char) > -1) {
+			var top = stack.pop();
+			if (top === undefined || !matches(top.char, char, openingBrackets, closingBrackets)) {
+				addDiagnostic(textDocument, i, i + char.length, "Brackets do not match", diagnostics);
+			}
+		}
+	}
+
+	for (let i = 0; i < stack.length; i++) {
+		addDiagnostic(textDocument, stack[i].i, stack[i].i + stack[i].char.length, "Brackets do not match", diagnostics);
+	}
+}
+
+function addDiagnostic(textDocument: TextDocument, start: number, end: number, message: string, diagnostics: Diagnostic[]) {
+	let diagnostic: Diagnostic = {
+		severity: DiagnosticSeverity.Error,
+		range: {
+			start: textDocument.positionAt(start),
+			end: textDocument.positionAt(end)
+		},
+		message: message
+	};
+	diagnostics.push(diagnostic);
+}
+
+function matches(top: string | undefined, char: string, openingBrackets: string[], closingBrackets: string[]) {
+	for (let j = 0; j < openingBrackets.length; j++) {
+		if (openingBrackets[j] === String(top) &&
+			closingBrackets[j] === char) {
+			return true;
+		}
+	}
+	return false;
+}
+
+function validateTextDocument(textDocument: TextDocument) {
+	let diagnostics: Diagnostic[] = [];
+	let text = textDocument.getText();
+	var textWithoutComments = text.replace(/\/\*[^*]*(\*\/|$)|\/\/.*/g, function (selection) {
+		return new Array(selection.length + 1).join("~");
+	});
+	
+	getBracketsDiagnostics(textWithoutComments, textDocument, diagnostics);
+
+	let startWithPipelineBlock = /^pipeline/g;
+	let n1: RegExpExecArray | null = startWithPipelineBlock.exec(textWithoutComments);
+	if (n1 == null) {
+		let diagnostic: Diagnostic = {
+			severity: DiagnosticSeverity.Error,
+			range: {
+				start: textDocument.positionAt(0),
+				end: textDocument.positionAt(1)
+			},
+			message: `Script must begin with pipeline block`
+		}
+		diagnostics.push(diagnostic);
+	}
+
+	let allowOncePipelinesBlock = /pipeline((?=[^']*(?:'[^']*'[^']*)*$)(?=[^"]*(?:"[^"]*"[^"]*)*$)(?=[^\/]*(?:\/[^\/]*\/[^\/]*)*$))/g;
+	let allowOnceStagesBlock = /stages((?=[^']*(?:'[^']*'[^']*)*$)(?=[^"]*(?:"[^"]*"[^"]*)*$)(?=[^\/]*(?:\/[^\/]*\/[^\/]*)*$))/g;
+	let allowOnceOptionsBlock = /options((?=[^']*(?:'[^']*'[^']*)*$)(?=[^"]*(?:"[^"]*"[^"]*)*$)(?=[^\/]*(?:\/[^\/]*\/[^\/]*)*$))/g;
+	let allowOnceParametersBlock = /parameters((?=[^']*(?:'[^']*'[^']*)*$)(?=[^"]*(?:"[^"]*"[^"]*)*$)(?=[^\/]*(?:\/[^\/]*\/[^\/]*)*$))/g;
+	let allowOnceTriggersBlock = /triggers((?=[^']*(?:'[^']*'[^']*)*$)(?=[^"]*(?:"[^"]*"[^"]*)*$)(?=[^\/]*(?:\/[^\/]*\/[^\/]*)*$))/g;
+	getAllowOnceDiagnostics(allowOncePipelinesBlock, textWithoutComments, textDocument, diagnostics);
+	getAllowOnceDiagnostics(allowOnceStagesBlock, textWithoutComments, textDocument, diagnostics);
+	getAllowOnceDiagnostics(allowOnceOptionsBlock, textWithoutComments, textDocument, diagnostics);
+	getAllowOnceDiagnostics(allowOnceParametersBlock, textWithoutComments, textDocument, diagnostics);
+	getAllowOnceDiagnostics(allowOnceTriggersBlock, textWithoutComments, textDocument, diagnostics);
+
+	// Send the computed diagnostics to VSCode.
+	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 }
 
 documents.listen(connection);
