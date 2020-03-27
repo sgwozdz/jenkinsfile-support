@@ -12,10 +12,6 @@
 		"node": "*"
 	},
 	"dependencies": {
-		"vscode-languageserver": "5.1.0",
-		"voca": "^1.4.0"
-	},
-	"devDependencies": {
-		"@types/voca": "^1.4.0"
+		"vscode-languageserver": "5.2.1"
 	}
 }
