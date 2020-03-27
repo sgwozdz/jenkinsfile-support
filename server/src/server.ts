@@ -146,6 +146,10 @@ connection.onCompletion(
 connection.onCompletionResolve(
 	(item: CompletionItem): CompletionItem => {
 		let keyword = keywords[item.label];
+		if (keyword === undefined) {
+			return item;
+		}
+
 		item.documentation = `Allowed: ${keyword.allowed}`;
 		item.detail = [`Required: ${keyword.required}  `,
 		`Parameters: ${keyword.parameters}`]
