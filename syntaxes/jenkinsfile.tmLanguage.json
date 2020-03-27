@@ -58,7 +58,7 @@
 			"patterns": [
 				{
 					"name": "keyword.control.jenkinsfile",
-					"match": "\\b(agent|post|stages|steps|environment|options|parameters|triggers|tools|input|when)\\b"
+					"match": "\\b(agent|post|stages|steps|environment|options|parallel|parameters|triggers|tools|input|when)\\b"
 				}
 			]
 		},
