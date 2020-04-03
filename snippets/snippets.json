@@ -104,7 +104,7 @@
         "try {",
         "    ${onTry}",
         "}",
-        "catch (${exception}) {"
+        "catch (${exception}) {",
         "    ${onCatch}",
         "}"
       ],
@@ -116,7 +116,7 @@
         "try {",
         "    ${onTry}",
         "}",
-        "catch (${exception}) {"
+        "catch (${exception}) {",
         "    ${onCatch}",
         "}",
         "finally {",
