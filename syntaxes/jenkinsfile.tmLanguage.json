@@ -19,7 +19,13 @@
 			"include": "#conditions"
 		},
 		{
+			"include": "#flowControl"
+		},
+		{
 			"include": "#variables"
+		},
+		{
+			"include": "#constants"
 		},
 		{
 			"include": "#string-single-quote-multiline"
@@ -58,7 +64,7 @@
 			"patterns": [
 				{
 					"name": "keyword.control.jenkinsfile",
-					"match": "\\b(agent|post|stages|steps|environment|options|parallel|parameters|triggers|tools|input|when)\\b"
+					"match": "\\b(agent|post|stages|steps|environment|options|parameters|triggers|tools|input|when|parallel|matrix)\\b"
 				}
 			]
 		},
@@ -78,11 +84,27 @@
 				}
 			]
 		},
+		"flowControl": {
+			"patterns": [
+				{
+					"name":"keyword.control.conditional.jenkinsfile",
+					"match": "\\b(if|else|try|catch|finally|throw)\\b"
+				}
+			]
+		},
 		"variables": {
 			"patterns": [
 				{
 					"name": "variable.parameter.jenkinsfile",
-					"match": "\\w+:"
+					"match": "\\w+:|\\b(env)\\b"
+				}
+			]
+		},
+		"constants": {
+			"patterns": [
+				{
+					"name": "constant.language.jenkinsfile",
+					"match": "\\b(true|false)\\b"
 				}
 			]
 		},

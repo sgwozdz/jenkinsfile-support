@@ -6,6 +6,18 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 ### Empty :)
 
+## [1.0.0] - 2020-03-27
+### Added
+- basic diagnostics
+- keywords completion
+- if/else/try snippets
+
+### Changed
+- syntax highlighting
+
+### Fixed
+- debug mode
+
 ## [0.4.4] - 2019-04-07
 ### Changed
 - syntax highlighting improvements for comments and strings

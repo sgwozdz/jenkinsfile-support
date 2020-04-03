@@ -15,10 +15,18 @@ Extension gives user basic jenkinsfile support.
 * syntax highlighting
 * snippets
 * completion
+* diagnostics
 
 ![Functionality](images/functionality.png)
 
 ## Release Notes
+
+### 1.0.0
+- added basic diagnostics
+- added keywords completion
+- added if/else/try snippets
+- improved syntax highlighting
+- fixed debug mode
 
 ### 0.4.4
 - syntax highlighting improvements for comments and strings

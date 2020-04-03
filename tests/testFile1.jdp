@@ -9,21 +9,34 @@ pipeline {
     stages {
         stage('Example Build') {
             steps {
-              /*  step {
-                    echo 'Hello, Jenkins' */
+                step {
+                  /*  echo 'Hello, Jenkins' */
                     s/*h 'mvn --version'*/
+                    if (env.BRANCH_NAME == true) {
+                        echo 'I only execute on the master branch'
+                    } else {
+                        echo 'I execute elsewhere'
+                    }
 
                     def thing = '''#!/usr/bin/env bash
                                 do stuff
-                                rm -rf /rpmPackageDir/*.key
+                                rm -rf /rpmPackageDir/.key
                                 do more stuff ${xyz}
                                 '''
+
+                    try {
+                        sh 'exit 1'
+                    }
+                    catch (exc) {
+                        echo 'Something failed, I should sound the klaxons!'
+                        throw
+                    }  
                     echo 'Something!'
                     "unix:///var/run/docker.sock"
                     "foo'
                     "sadas 'asda' "
                     sript: 'curl -g -s ' + jobURL + ' | python -c "import sys, json; 
-                    input = json.load(sys.stdin); print input[\'displayName\'][input[\'displayName\'].index(\'v\') + 1:]"'
+                    input = json.load(sys.stdin)=; print input[\'displayName\'][input[\'displayName\'].index(\'v\') + 1:]"'
                 }
             }
         }
