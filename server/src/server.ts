@@ -260,11 +260,11 @@ function validateTextDocument(textDocument: TextDocument) {
 		diagnostics.push(diagnostic);
 	}
 
-	let allowOncePipelinesBlock = /pipeline((?=[^']*(?:'[^']*'[^']*)*$)(?=[^"]*(?:"[^"]*"[^"]*)*$)(?=[^\/]*(?:\/[^\/]*\/[^\/]*)*$))/g;
-	let allowOnceStagesBlock = /stages((?=[^']*(?:'[^']*'[^']*)*$)(?=[^"]*(?:"[^"]*"[^"]*)*$)(?=[^\/]*(?:\/[^\/]*\/[^\/]*)*$))/g;
-	let allowOnceOptionsBlock = /options((?=[^']*(?:'[^']*'[^']*)*$)(?=[^"]*(?:"[^"]*"[^"]*)*$)(?=[^\/]*(?:\/[^\/]*\/[^\/]*)*$))/g;
-	let allowOnceParametersBlock = /parameters((?=[^']*(?:'[^']*'[^']*)*$)(?=[^"]*(?:"[^"]*"[^"]*)*$)(?=[^\/]*(?:\/[^\/]*\/[^\/]*)*$))/g;
-	let allowOnceTriggersBlock = /triggers((?=[^']*(?:'[^']*'[^']*)*$)(?=[^"]*(?:"[^"]*"[^"]*)*$)(?=[^\/]*(?:\/[^\/]*\/[^\/]*)*$))/g;
+	let allowOncePipelinesBlock = /pipeline(| ){/g;
+	let allowOnceStagesBlock = /stages(| ){/g;
+	let allowOnceOptionsBlock = /options(| ){/g;
+	let allowOnceParametersBlock = /parameters(| ){/g;
+	let allowOnceTriggersBlock = /triggers(| ){/g;
 	getAllowOnceDiagnostics(allowOncePipelinesBlock, textWithoutComments, textDocument, diagnostics);
 	getAllowOnceDiagnostics(allowOnceStagesBlock, textWithoutComments, textDocument, diagnostics);
 	getAllowOnceDiagnostics(allowOnceOptionsBlock, textWithoutComments, textDocument, diagnostics);
