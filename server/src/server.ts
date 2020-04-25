@@ -246,25 +246,12 @@ function validateTextDocument(textDocument: TextDocument) {
 	
 	getBracketsDiagnostics(textWithoutComments, textDocument, diagnostics);
 
-	let startWithPipelineBlock = /^pipeline/g;
-	let n1: RegExpExecArray | null = startWithPipelineBlock.exec(textWithoutComments);
-	if (n1 == null) {
-		let diagnostic: Diagnostic = {
-			severity: DiagnosticSeverity.Error,
-			range: {
-				start: textDocument.positionAt(0),
-				end: textDocument.positionAt(1)
-			},
-			message: `Script must begin with pipeline block`
-		}
-		diagnostics.push(diagnostic);
-	}
-
 	let allowOncePipelinesBlock = /pipeline(| ){/g;
 	let allowOnceStagesBlock = /stages(| ){/g;
 	let allowOnceOptionsBlock = /options(| ){/g;
 	let allowOnceParametersBlock = /parameters(| ){/g;
 	let allowOnceTriggersBlock = /triggers(| ){/g;
+  
 	getAllowOnceDiagnostics(allowOncePipelinesBlock, textWithoutComments, textDocument, diagnostics);
 	getAllowOnceDiagnostics(allowOnceStagesBlock, textWithoutComments, textDocument, diagnostics);
 	getAllowOnceDiagnostics(allowOnceOptionsBlock, textWithoutComments, textDocument, diagnostics);
