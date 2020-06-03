@@ -21,6 +21,10 @@ Extension gives user basic jenkinsfile support.
 
 ## Release Notes
 
+### 1.1.0
+- fixes for false positive diagnostics
+- fixes for syntax highlighting
+
 ### 1.0.0
 - added basic diagnostics
 - added keywords completion
@@ -28,31 +32,4 @@ Extension gives user basic jenkinsfile support.
 - improved syntax highlighting
 - fixed debug mode
 
-### 0.4.4
-- syntax highlighting improvements for comments and strings
-
-### 0.4.3
-- update extension libraries
-
-### 0.4.2
-- extended snippet support
-
-### 0.4.1
-- event-stream security update
-
-### 0.4.0
-- show hovers for basic keywords
-- show autocompletion for basic keywords
-
-### 0.2.0
-* multiline comments
-* tmp, stg, stp snippets
-
-### 0.1.2
-* aligning versions
-
-### 0.1.1
-* fix readme image path
-
-### 0.1.0
-* basic syntax highlighting
+... :)

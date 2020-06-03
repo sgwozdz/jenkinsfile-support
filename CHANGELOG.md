@@ -4,8 +4,13 @@ All notable changes to the "jenkinsfile-support" extension will be documented in
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
 ## [Unreleased]
+
+# [1.1.0] - 2020-06-03
+
 ### Fixed
-- add missing commas to snippets.json
+- missing commas to snippets.json
+- false positive diagnostics
+- syntax highlighting for nested string interpolation
 
 ## [1.0.0] - 2020-03-27
 ### Added
