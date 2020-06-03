@@ -53,6 +53,7 @@ pipeline {
                     //echo 'Hello, JDK'
                     echo "Hello ${params.PERSON}\n"
                     sh 'java -version'
+                    EXAMPLE_ENV = "${flag ? "Nested ${interpolation}" : "Default"}"
                 }
             }
         }
