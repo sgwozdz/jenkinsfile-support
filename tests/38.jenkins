@@ -1,0 +1,13 @@
+pipeline {
+//      ^~ Brackets don't match
+    stages {
+//        ^~ Brackets don't match
+        stage("blah") {
+//                   ^~ Brackets don't match
+            steps {
+//               ^~ Brackets don't match
+                sh "mv folder/*.war somewhere.war"
+            }
+        }
+    }
+}

@@ -240,7 +240,7 @@ function matches(top: string | undefined, char: string, openingBrackets: string[
 function validateTextDocument(textDocument: TextDocument) {
 	let diagnostics: Diagnostic[] = [];
 	let text = textDocument.getText();
-	var textWithoutComments = text.replace(/\/\*[^*]*(\*\/|$)|\/\/.*/g, function (selection) {
+	var textWithoutComments = text.replace(/(".*")|(\/\/.*)|(\/\*[^*]*(\*\/|$))/g, function (selection) {
 		return new Array(selection.length + 1).join("~");
 	});
 	
