@@ -39,16 +39,14 @@
             {
                 "id": "jenkinsfile",
                 "aliases": [
-                    "Jenkinsfile",
-                    "jenkinsfile"
+                    "JenkinsFile",
+                    "Jenkins"
                 ],
                 "extensions": [
-                    "Jenkinsfile",
-                    "jenkinsfile",
-                    ".jdp"
+                    ".jenkins",
+                    ".jenkinsfile"
                 ],
                 "filenames": [
-                    "Jenkinsfile",
                     "jenkinsfile"
                 ],
                 "configuration": "./language-configuration.json"
