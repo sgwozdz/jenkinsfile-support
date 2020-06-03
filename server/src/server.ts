@@ -247,13 +247,13 @@ function validateTextDocument(textDocument: TextDocument) {
 	getBracketsDiagnostics(textWithoutComments, textDocument, diagnostics);
 
 	let allowOncePipelinesBlock = /pipeline(| ){/g;
-	let allowOnceStagesBlock = /stages(| ){/g;
+	// let allowOnceStagesBlock = /stages(| ){/g;
 	let allowOnceOptionsBlock = /options(| ){/g;
 	let allowOnceParametersBlock = /parameters(| ){/g;
 	let allowOnceTriggersBlock = /triggers(| ){/g;
   
 	getAllowOnceDiagnostics(allowOncePipelinesBlock, textWithoutComments, textDocument, diagnostics);
-	getAllowOnceDiagnostics(allowOnceStagesBlock, textWithoutComments, textDocument, diagnostics);
+	// getAllowOnceDiagnostics(allowOnceStagesBlock, textWithoutComments, textDocument, diagnostics);
 	getAllowOnceDiagnostics(allowOnceOptionsBlock, textWithoutComments, textDocument, diagnostics);
 	getAllowOnceDiagnostics(allowOnceParametersBlock, textWithoutComments, textDocument, diagnostics);
 	getAllowOnceDiagnostics(allowOnceTriggersBlock, textWithoutComments, textDocument, diagnostics);
