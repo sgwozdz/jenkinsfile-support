@@ -80,7 +80,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function.jenkinsfile",
-					"match": "\\b(always|changed|fixed|regression|aborted|failure|success|unstable|cleanup)\\b"
+					"match": "\\b(always|changed|fixed|regression|aborted|failure|success|unstable|unsuccessful|cleanup)\\b"
 				}
 			]
 		},

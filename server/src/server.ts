@@ -16,7 +16,7 @@ import {
 let connection = createConnection(ProposedFeatures.all);
 let documents: TextDocuments = new TextDocuments();
 const simpleKeywords =  ['true', 'false', 'env', 'if', 'else', 'try', 'catch', 'finally', 'throw', 'echo', 'always',
-'changed','fixed','regression','aborted','failure','success','unstable','cleanup', 'step', 'matrix', 'parallel'];
+'changed','fixed','regression','aborted','failure','success','unstable','unsuccessful','cleanup', 'step', 'matrix', 'parallel'];
 const keywords: { [name: string]: { required: string, parameters: string, allowed: string } } = {
 	agent: {
 		required: 'Yes',
