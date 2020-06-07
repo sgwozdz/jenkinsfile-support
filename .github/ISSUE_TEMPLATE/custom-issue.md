@@ -1,17 +1,14 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
+name: Custom issue
+about: Custom issue template
 title: ''
-labels: feature
+labels: help wanted
 assignees: sgwozdz
 
 ---
 
-**What**
+**Describe purpose of this issue**
 A clear and concise description of what the issue is.
-
-**Why**
-A clear and concise description of why you want it.
 
 **Additional context**
 Add any other context or screenshots about the feature request here.

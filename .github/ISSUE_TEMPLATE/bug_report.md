@@ -10,8 +10,11 @@ assignees: sgwozdz
 **Describe the bug**
 A clear and concise description of what the bug is.
 
-**Expected behavior**
+**Expected behaviour**
 A clear and concise description of what you expected to happen.
+
+**Actual behaviour**
+A clear and concise description of what is happening now.
 
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
