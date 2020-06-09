@@ -21,7 +21,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 10.x
+        
     - run: npm install
+      
+    - run: npm compile
       
     - name: Run tests
       uses: GabrielBB/xvfb-action@v1.2
