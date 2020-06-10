@@ -2,7 +2,7 @@
     "name": "jenkinsfile-support",
     "displayName": "JenkinsFile Support",
     "description": "Extension provides basic jenkinsfile support (highlighting, snippets and completion)",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "license": "MIT",
     "author": {
         "name": "Szymon Gwóźdź",
@@ -74,13 +74,15 @@
         "watch:server": "tsc -w -p ./server/",
         "compile": "npm run compile:client | npm run compile:server",
         "postinstall": "cd server && npm install && cd ../client && npm install",
-        "test": "cd client && node ./node_modules/vscode/bin/test"
+        "test": "cd client && node ./node_modules/vscode/bin/test",
+        "deploy": "vsce publish --yarn"
     },
     "devDependencies": {
-        "@types/node": "10.12.21",
-        "@types/mocha": "2.2.42",
         "@types/chai": "4.1.7",
+        "@types/mocha": "2.2.42",
+        "@types/node": "10.12.21",
+        "chai": "4.2.0",
         "typescript": "3.3.1",
-        "chai": "4.2.0"
+        "vsce": "^1.76.1"
     }
 }

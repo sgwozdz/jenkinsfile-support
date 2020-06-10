@@ -18,7 +18,7 @@ jobs:
     - name: Install Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: 10.x
+        node-version: 12.x
     
     - name: Install NPM packages
       run: npm install

@@ -5,6 +5,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+# [1.1.1] - 2020-06-10
+
+### Changed
+- move from Azure Pipelines to GitHub Actions
+
+
 # [1.1.0] - 2020-06-03
 
 ### Fixed

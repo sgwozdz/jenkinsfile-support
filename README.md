@@ -21,6 +21,9 @@ Extension gives user basic jenkinsfile support.
 
 ## Release Notes
 
+### 1.1.1
+- move from Azure Pipelines to GitHub Actions
+
 ### 1.1.0
 - fixes for false positive diagnostics
 - fixes for syntax highlighting
