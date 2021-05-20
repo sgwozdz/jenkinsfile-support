@@ -1,7 +1,7 @@
 {
-    "name": "jenkinsfile-support",
-    "displayName": "JenkinsFile Support",
-    "description": "Extension provides basic jenkinsfile support (highlighting, snippets and completion)",
+    "name": "jenkinsfile",
+    "displayName": "Jenkinsfile",
+    "description": "[formerly JenkinsFile Support] Extension provides basic jenkinsfile support (highlighting, snippets and completion)",
     "version": "1.2.0",
     "license": "MIT",
     "author": {
