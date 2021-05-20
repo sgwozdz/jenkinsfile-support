@@ -3,10 +3,10 @@
 	"description": "Code extension language client",
 	"version": "1.2.0",
 	"license": "MIT",
-	"publisher": "ivory-lab",
+	"publisher": "recode4dev",
 	"author": {
 		"name": "Szymon Gwóźdź",
-		"email": "szymon.gwozdz@outlook.com"
+		"email": "gwozdz@recode.dev"
 	},
 	"engines": {
 		"vscode": "^1.56.2"

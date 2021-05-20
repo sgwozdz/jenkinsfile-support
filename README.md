@@ -3,10 +3,10 @@
 ![CI](https://github.com/sgwozdz/jenkinsfile-support/workflows/CI/badge.svg)
 ![Installs][installs-badge]
 
-[version-badge]: https://vsmarketplacebadge.apphb.com/version/ivory-lab.jenkinsfile-support.svg
-[version]: https://marketplace.visualstudio.com/items?itemName=ivory-lab.jenkinsfile-support
-[installs-badge]: https://vsmarketplacebadge.apphb.com/installs-short/ivory-lab.jenkinsfile-support.svg
-[installs]: https://marketplace.visualstudio.com/items?itemName=ivory-lab.jenkinsfile-support
+[version-badge]: https://vsmarketplacebadge.apphb.com/version/recode4dev.jenkinsfile-support.svg
+[version]: https://marketplace.visualstudio.com/items?itemName=recode4dev.jenkinsfile-support
+[installs-badge]: https://vsmarketplacebadge.apphb.com/installs-short/recode4dev.jenkinsfile-support.svg
+[installs]: https://marketplace.visualstudio.com/items?itemName=recode4dev.jenkinsfile-support
 
 ## Features
 

@@ -6,13 +6,13 @@
     "license": "MIT",
     "author": {
         "name": "Szymon Gwóźdź",
-        "email": "szymon.gwozdz@outlook.com"
+        "email": "gwozdz@recode.dev"
     },
     "bugs": {
         "url": "https://github.com/sgwozdz/jenkinsfile-support/issues"
     },
     "icon": "images/icon.png",
-    "publisher": "ivory-lab",
+    "publisher": "recode4dev",
     "engines": {
         "vscode": "^1.56.2"
     },
