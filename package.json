@@ -71,7 +71,8 @@
         "vscode:prepublish": "npm run compile",
         "compile": "tsc -b",
         "watch": "tsc -b -w",
-        "postinstall": "cd client && npm install && cd ../server && npm install && cd .."
+        "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
+        "deploy": "vsce publish --yarn"
     },
     "devDependencies": {
         "@types/chai": "4.2.18",
