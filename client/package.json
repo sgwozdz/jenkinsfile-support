@@ -1,7 +1,7 @@
 {
 	"name": "lsp-client",
 	"description": "Code extension language client",
-	"version": "1.1.1",
+	"version": "1.2.0",
 	"license": "MIT",
 	"publisher": "ivory-lab",
 	"author": {
@@ -9,15 +9,14 @@
 		"email": "szymon.gwozdz@outlook.com"
 	},
 	"engines": {
-		"vscode": "^1.28.0"
+		"vscode": "^1.56.2"
 	},
-	"scripts": {
-		"update-vscode": "vscode-install",
-		"postinstall": "vscode-install"
-	},
+	"scripts": {},
 	"dependencies": {
-		"vscode": "1.1.33",
-		"vscode-languageclient": "5.1.1",
-		"mocha": "5.2.0"
+		"vscode-languageclient": "7.0.0",
+		"mocha": "8.4.0"
+	},
+	"devDependencies": {
+		"@types/vscode": "1.56.0"
 	}
 }

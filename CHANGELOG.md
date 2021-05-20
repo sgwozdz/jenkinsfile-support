@@ -3,16 +3,15 @@ All notable changes to the "jenkinsfile-support" extension will be documented in
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+## [1.2.0] - 2021-05-20
+### Changed
+- update dependencies
 
-# [1.1.1] - 2020-06-10
-
+## [1.1.1] - 2020-06-10
 ### Changed
 - move from Azure Pipelines to GitHub Actions
 
-
-# [1.1.0] - 2020-06-03
-
+## [1.1.0] - 2020-06-03
 ### Fixed
 - missing commas to snippets.json
 - false positive diagnostics
@@ -23,10 +22,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - basic diagnostics
 - keywords completion
 - if/else/try snippets
-
 ### Changed
 - syntax highlighting
-
 ### Fixed
 - debug mode
 
