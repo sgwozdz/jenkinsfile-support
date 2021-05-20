@@ -252,7 +252,7 @@ function validateTextDocument(textDocument: TextDocument) {
 
 	let allowOncePipelinesBlock = /pipeline(| ){/g;
 	// let allowOnceStagesBlock = /stages(| ){/g;
-	let allowOnceOptionsBlock = /options(| ){/g;
+	// let allowOnceOptionsBlock = /options(| ){/g;
 	let allowOnceParametersBlock = /parameters(| ){/g;
 	let allowOnceTriggersBlock = /triggers(| ){/g;
   
