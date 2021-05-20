@@ -8,13 +8,17 @@ import {
 	MarkupContent,
 	CompletionItem,
 	CompletionItemKind,
-	TextDocument,
 	Diagnostic,
-	DiagnosticSeverity
-} from 'vscode-languageserver';
+	DiagnosticSeverity,
+	TextDocumentSyncKind
+} from 'vscode-languageserver/node';
 
-let connection = createConnection(ProposedFeatures.all);
-let documents: TextDocuments = new TextDocuments();
+import {
+	TextDocument
+} from 'vscode-languageserver-textdocument';
+
+const connection = createConnection(ProposedFeatures.all);
+const documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
 const simpleKeywords =  ['true', 'false', 'env', 'if', 'else', 'try', 'catch', 'finally', 'throw', 'echo', 'always',
 'changed','fixed','regression','aborted','failure','success','unstable','unsuccessful','cleanup', 'step', 'matrix', 'parallel'];
 const keywords: { [name: string]: { required: string, parameters: string, allowed: string } } = {
@@ -78,7 +82,7 @@ const keywords: { [name: string]: { required: string, parameters: string, allowe
 connection.onInitialize(() => {
 	return {
 		capabilities: {
-			textDocumentSync: documents.syncKind,
+			textDocumentSync: TextDocumentSyncKind.Incremental,
 			hoverProvider: true,
 			completionProvider: {
 				resolveProvider: true
