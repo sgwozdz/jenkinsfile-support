@@ -258,7 +258,7 @@ function validateTextDocument(textDocument: TextDocument) {
   
 	getAllowOnceDiagnostics(allowOncePipelinesBlock, textWithoutComments, textDocument, diagnostics);
 	// getAllowOnceDiagnostics(allowOnceStagesBlock, textWithoutComments, textDocument, diagnostics);
-	getAllowOnceDiagnostics(allowOnceOptionsBlock, textWithoutComments, textDocument, diagnostics);
+	// getAllowOnceDiagnostics(allowOnceOptionsBlock, textWithoutComments, textDocument, diagnostics);
 	getAllowOnceDiagnostics(allowOnceParametersBlock, textWithoutComments, textDocument, diagnostics);
 	getAllowOnceDiagnostics(allowOnceTriggersBlock, textWithoutComments, textDocument, diagnostics);
 
