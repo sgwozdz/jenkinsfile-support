@@ -14,7 +14,7 @@
     "icon": "images/icon.png",
     "publisher": "ivory-lab",
     "engines": {
-        "vscode": "^1.28.0"
+        "vscode": "^1.56.2"
     },
     "homepage": "https://github.com/sgwozdz/jenkinsfile-support",
     "repository": {
@@ -68,14 +68,10 @@
         ]
     },
     "scripts": {
-        "compile:client": "tsc -p ./client/",
-        "compile:server": "tsc -p ./server/",
-        "watch:client": "tsc -w -p ./client/",
-        "watch:server": "tsc -w -p ./server/",
-        "compile": "npm run compile:client | npm run compile:server",
-        "postinstall": "cd server && npm install && cd ../client && npm install",
-        "test": "cd client && node ./node_modules/vscode/bin/test",
-        "deploy": "vsce publish --yarn"
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -b",
+        "watch": "tsc -b -w",
+        "postinstall": "cd client && npm install && cd ../server && npm install && cd .."
     },
     "devDependencies": {
         "@types/chai": "4.2.18",

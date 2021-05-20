@@ -9,7 +9,7 @@
 		"email": "szymon.gwozdz@outlook.com"
 	},
 	"engines": {
-		"vscode": "^1.28.0"
+		"vscode": "^1.56.2"
 	},
 	"scripts": {},
 	"dependencies": {

@@ -18,21 +18,3 @@ Extension gives user basic jenkinsfile support.
 * diagnostics
 
 ![Functionality](images/functionality.png)
-
-## Release Notes
-
-### 1.1.1
-- move from Azure Pipelines to GitHub Actions
-
-### 1.1.0
-- fixes for false positive diagnostics
-- fixes for syntax highlighting
-
-### 1.0.0
-- added basic diagnostics
-- added keywords completion
-- added if/else/try snippets
-- improved syntax highlighting
-- fixed debug mode
-
-... :)
