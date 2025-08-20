@@ -1,85 +1,85 @@
 {
-    "name": "jenkinsfile",
-    "displayName": "Jenkinsfile",
-    "description": "[formerly JenkinsFile Support] Extension provides basic jenkinsfile support (highlighting, snippets and completion)",
-    "version": "1.2.0",
-    "license": "MIT",
-    "author": {
-        "name": "Szymon Gwóźdź",
-        "email": "gwozdz@recode.dev"
-    },
-    "bugs": {
-        "url": "https://github.com/sgwozdz/jenkinsfile-support/issues"
-    },
-    "icon": "images/icon.png",
-    "publisher": "recode4dev",
-    "engines": {
-        "vscode": "^1.56.2"
-    },
-    "homepage": "https://github.com/sgwozdz/jenkinsfile-support",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/sgwozdz/jenkinsfile-support.git"
-    },
-    "categories": [
-        "Programming Languages",
-        "Snippets"
-    ],
-    "keywords": [
-        "jenkins",
-        "jenkinsfile",
-        "jdp"
-    ],
-    "activationEvents": [
-        "onLanguage:jenkinsfile"
-    ],
-    "main": "./client/out/extension",
-    "contributes": {
-        "languages": [
-            {
-                "id": "jenkinsfile",
-                "aliases": [
-                    "JenkinsFile",
-                    "Jenkins"
-                ],
-                "extensions": [
-                    ".jenkins",
-                    ".jenkinsfile"
-                ],
-                "filenames": [
-                    "jenkinsfile"
-                ],
-                "configuration": "./language-configuration.json"
-            }
+  "name": "jenkinsfile",
+  "displayName": "Jenkinsfile",
+  "description": "[formerly JenkinsFile Support] Extension provides basic jenkinsfile support (highlighting, snippets and completion)",
+  "version": "1.2.0",
+  "license": "MIT",
+  "author": {
+    "name": "Szymon Gwóźdź",
+    "email": "gwozdz@recode.dev"
+  },
+  "bugs": {
+    "url": "https://github.com/sgwozdz/jenkinsfile-support/issues"
+  },
+  "icon": "images/icon.png",
+  "publisher": "recode4dev",
+  "engines": {
+    "vscode": "^1.56.2"
+  },
+  "homepage": "https://github.com/sgwozdz/jenkinsfile-support",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sgwozdz/jenkinsfile-support.git"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": [
+    "jenkins",
+    "jenkinsfile",
+    "jdp"
+  ],
+  "activationEvents": [
+    "onLanguage:jenkinsfile"
+  ],
+  "main": "./client/out/extension",
+  "contributes": {
+    "languages": [
+      {
+        "id": "jenkinsfile",
+        "aliases": [
+          "JenkinsFile",
+          "Jenkins"
         ],
-        "grammars": [
-            {
-                "language": "jenkinsfile",
-                "scopeName": "source.jenkins",
-                "path": "./syntaxes/jenkinsfile.tmLanguage.json"
-            }
+        "extensions": [
+          ".jenkins",
+          ".jenkinsfile"
         ],
-        "snippets": [
-            {
-                "language": "jenkinsfile",
-                "scopeName": "source.jenkins",
-                "path": "./snippets/snippets.json"
-            }
-        ]
-    },
-    "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -b",
-        "watch": "tsc -b -w",
-        "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
-        "deploy": "vsce publish --yarn"
-    },
-    "devDependencies": {
-        "@types/chai": "4.2.18",
-        "@types/mocha": "8.2.2",
-        "@types/node": "15.3.1",
-        "chai": "4.3.4",
-        "typescript": "4.2.4",
-        "vsce": "1.88.0"
-    }
+        "filenames": [
+          "jenkinsfile"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "jenkinsfile",
+        "scopeName": "source.jenkins",
+        "path": "./syntaxes/jenkinsfile.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "jenkinsfile",
+        "scopeName": "source.jenkins",
+        "path": "./snippets/snippets.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -b",
+    "watch": "tsc -b -w",
+    "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
+    "deploy": "vsce publish --yarn"
+  },
+  "devDependencies": {
+    "@types/chai": "4.2.18",
+    "@types/mocha": "8.2.2",
+    "@types/node": "15.3.1",
+    "chai": "4.3.4",
+    "typescript": "4.2.4",
+    "vsce": "^2.15.0"
+  }
 }
