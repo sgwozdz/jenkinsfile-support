@@ -116,22 +116,22 @@ connection.onInitialize(() => {
 
 connection.onHover(
   (_textDocumentPosition: TextDocumentPositionParams): Hover => {
-    let document = documents.get(_textDocumentPosition.textDocument.uri);
+    const document = documents.get(_textDocumentPosition.textDocument.uri);
     if (document === undefined) {
       return {
         contents: '',
       };
     }
-    let offset = document.offsetAt(_textDocumentPosition.position);
-    let text = document.getText();
-    let word = getWordAt(text, offset);
-    let desc = keywords[word];
+    const offset = document.offsetAt(_textDocumentPosition.position);
+    const text = document.getText();
+    const word = getWordAt(text, offset);
+    const desc = keywords[word];
     if (desc == null) {
       return {
         contents: '',
       };
     }
-    let markdown: MarkupContent = {
+    const markdown: MarkupContent = {
       kind: MarkupKind.Markdown,
       value: [
         `**Required:** ${desc.required}  `,
@@ -145,35 +145,33 @@ connection.onHover(
   }
 );
 
-connection.onCompletion(
-  (_textDocumentPosition: TextDocumentPositionParams): CompletionItem[] => {
-    // The pass parameter contains the position of the text document in
-    // which code complete got requested. For the example we ignore this
-    // info and always provide the same completion items.
-    let list: CompletionItem[] = [];
+connection.onCompletion((): CompletionItem[] => {
+  // The pass parameter contains the position of the text document in
+  // which code complete got requested. For the example we ignore this
+  // info and always provide the same completion items.
+  const list: CompletionItem[] = [];
 
-    for (let keyword of simpleKeywords) {
-      list.push({
-        label: keyword,
-        kind: CompletionItemKind.Keyword,
-      });
-    }
-
-    for (let keyword in keywords) {
-      list.push({
-        label: keyword,
-        kind: CompletionItemKind.Keyword,
-      });
-    }
-
-    return list;
+  for (const keyword of simpleKeywords) {
+    list.push({
+      label: keyword,
+      kind: CompletionItemKind.Keyword,
+    });
   }
-);
+
+  for (const keyword in keywords) {
+    list.push({
+      label: keyword,
+      kind: CompletionItemKind.Keyword,
+    });
+  }
+
+  return list;
+});
 
 // This handler resolve additional information for the item selected in
 // the completion list.
 connection.onCompletionResolve((item: CompletionItem): CompletionItem => {
-  let keyword = keywords[item.label];
+  const keyword = keywords[item.label];
   if (keyword === undefined) {
     return item;
   }
@@ -195,7 +193,7 @@ function getWordAt(str: string, pos: number) {
   str = String(str);
   pos = Number(pos) >>> 0;
 
-  var left = str.slice(0, pos + 1).search(/\w+$/),
+  const left = str.slice(0, pos + 1).search(/\w+$/),
     right = str.slice(pos).search(/\W/);
 
   if (right < 0) {
@@ -213,7 +211,7 @@ function getAllowOnceDiagnostics(
 ) {
   let n: RegExpExecArray | null = allowOncePattern.exec(text);
   while ((n = allowOncePattern.exec(text))) {
-    let diagnostic: Diagnostic = {
+    const diagnostic: Diagnostic = {
       severity: DiagnosticSeverity.Error,
       range: {
         start: textDocument.positionAt(n.index),
@@ -230,17 +228,17 @@ function getBracketsDiagnostics(
   textDocument: TextDocument,
   diagnostics: Diagnostic[]
 ) {
-  var stack = [];
-  var openingBrackets = ['(', '{', '['];
-  var closingBrackets = [')', '}', ']'];
+  const stack = [];
+  const openingBrackets = ['(', '{', '['];
+  const closingBrackets = [')', '}', ']'];
 
   for (let i = 0; i < text.length; i++) {
-    var char = text[i];
+    const char = text[i];
     if (openingBrackets.indexOf(char) > -1) {
       stack.push({ char, i });
     }
     if (closingBrackets.indexOf(char) > -1) {
-      var top = stack.pop();
+      const top = stack.pop();
       if (
         top === undefined ||
         !matches(top.char, char, openingBrackets, closingBrackets)
@@ -274,7 +272,7 @@ function addDiagnostic(
   message: string,
   diagnostics: Diagnostic[]
 ) {
-  let diagnostic: Diagnostic = {
+  const diagnostic: Diagnostic = {
     severity: DiagnosticSeverity.Error,
     range: {
       start: textDocument.positionAt(start),
@@ -300,9 +298,9 @@ function matches(
 }
 
 function validateTextDocument(textDocument: TextDocument) {
-  let diagnostics: Diagnostic[] = [];
-  let text = textDocument.getText();
-  var textWithoutComments = text.replace(
+  const diagnostics: Diagnostic[] = [];
+  const text = textDocument.getText();
+  const textWithoutComments = text.replace(
     /('(?:[^'\\]|\\.)*')|("(?:[^"\\]|\\.)*")|("""[\s\S]*?""")|(\/\/.*)|(\/\*[\s\S]*?\*\/)/g,
     function (selection) {
       return new Array(selection.length + 1).join('~');
@@ -311,11 +309,11 @@ function validateTextDocument(textDocument: TextDocument) {
 
   getBracketsDiagnostics(textWithoutComments, textDocument, diagnostics);
 
-  let allowOncePipelinesBlock = /pipeline(| ){/g;
+  const allowOncePipelinesBlock = /pipeline(| ){/g;
   // let allowOnceStagesBlock = /stages(| ){/g;
   // let allowOnceOptionsBlock = /options(| ){/g;
-  let allowOnceParametersBlock = /parameters(| ){/g;
-  let allowOnceTriggersBlock = /triggers(| ){/g;
+  const allowOnceParametersBlock = /parameters(| ){/g;
+  const allowOnceTriggersBlock = /triggers(| ){/g;
 
   getAllowOnceDiagnostics(
     allowOncePipelinesBlock,

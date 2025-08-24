@@ -74,7 +74,11 @@
     "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
     "deploy": "@vscode/vsce publish --yarn",
     "format": "prettier --write \"**/*.{ts,js,json}\"",
-    "format:check": "prettier --check \"**/*.{ts,js,json}\""
+    "format:check": "prettier --check \"**/*.{ts,js,json}\"",
+    "lint": "eslint \"**/*.{ts,js}\"",
+    "lint:fix": "eslint \"**/*.{ts,js}\" --fix",
+    "check": "npm run lint && npm run format:check",
+    "fix": "npm run lint:fix && npm run format"
   },
   "devDependencies": {
     "@types/chai": "4.2.18",

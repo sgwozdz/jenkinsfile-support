@@ -12,5 +12,7 @@
   },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "eslint.validate": ["typescript", "javascript"],
+  "eslint.workingDirectories": ["./client", "./server"]
 }

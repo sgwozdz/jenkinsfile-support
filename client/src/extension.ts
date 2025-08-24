@@ -12,7 +12,7 @@ import {
 let client: LanguageClient;
 
 export function activate(context: ExtensionContext) {
-  let serverModule = context.asAbsolutePath(
+  const serverModule = context.asAbsolutePath(
     path.join('server', 'out', 'server.js')
   );
 
@@ -33,7 +33,7 @@ export function getDebugOptions() {
 }
 
 export function getServerOptions(serverModule: string): ServerOptions {
-  let debugOptions = getDebugOptions();
+  const debugOptions = getDebugOptions();
 
   return {
     run: { module: serverModule, transport: TransportKind.ipc },
@@ -54,7 +54,7 @@ export function getClientOptions(): LanguageClientOptions {
   };
 }
 
-export function deactivate(): Thenable<void> | undefined {
+export function deactivate(): Promise<void> | undefined {
   if (!client) {
     return undefined;
   }
