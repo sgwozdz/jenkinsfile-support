@@ -1,11 +1,9 @@
 {
-    "compilerOptions": {
-        "strict": true,
-        "noImplicitReturns": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true
-    },
-    "exclude": [
-        ".vscode-test"
-    ]
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  },
+  "exclude": [".vscode-test"]
 }

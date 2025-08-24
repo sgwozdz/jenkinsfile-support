@@ -11,94 +11,94 @@ import {
   Diagnostic,
   DiagnosticSeverity,
   TextDocumentSyncKind,
-} from "vscode-languageserver/node";
+} from 'vscode-languageserver/node';
 
-import { TextDocument } from "vscode-languageserver-textdocument";
+import { TextDocument } from 'vscode-languageserver-textdocument';
 
 const connection = createConnection(ProposedFeatures.all);
 const documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
 const simpleKeywords = [
-  "true",
-  "false",
-  "env",
-  "if",
-  "else",
-  "try",
-  "catch",
-  "finally",
-  "throw",
-  "echo",
-  "always",
-  "changed",
-  "fixed",
-  "regression",
-  "aborted",
-  "failure",
-  "success",
-  "unstable",
-  "unsuccessful",
-  "cleanup",
-  "step",
-  "matrix",
-  "parallel",
+  'true',
+  'false',
+  'env',
+  'if',
+  'else',
+  'try',
+  'catch',
+  'finally',
+  'throw',
+  'echo',
+  'always',
+  'changed',
+  'fixed',
+  'regression',
+  'aborted',
+  'failure',
+  'success',
+  'unstable',
+  'unsuccessful',
+  'cleanup',
+  'step',
+  'matrix',
+  'parallel',
 ];
 const keywords: {
   [name: string]: { required: string; parameters: string; allowed: string };
 } = {
   agent: {
-    required: "Yes",
-    parameters: "any|none|label||node|docker|dockerfile",
-    allowed: "In the top-level pipeline block and each stage block.",
+    required: 'Yes',
+    parameters: 'any|none|label||node|docker|dockerfile',
+    allowed: 'In the top-level pipeline block and each stage block.',
   },
   post: {
-    required: "No",
-    parameters: "None",
-    allowed: "In the top-level pipeline block and each stage block.",
+    required: 'No',
+    parameters: 'None',
+    allowed: 'In the top-level pipeline block and each stage block.',
   },
   stages: {
-    required: "Yes",
-    parameters: "None",
-    allowed: "Only once, inside the pipeline block.",
+    required: 'Yes',
+    parameters: 'None',
+    allowed: 'Only once, inside the pipeline block.',
   },
   steps: {
-    required: "Yes",
-    parameters: "None",
-    allowed: "Inside each stage block.",
+    required: 'Yes',
+    parameters: 'None',
+    allowed: 'Inside each stage block.',
   },
   environment: {
-    required: "No",
-    parameters: "None",
-    allowed: "Inside the pipeline block, or within stage directives.",
+    required: 'No',
+    parameters: 'None',
+    allowed: 'Inside the pipeline block, or within stage directives.',
   },
   options: {
-    required: "No",
-    parameters: "None",
-    allowed: "Only once, inside the pipeline block.",
+    required: 'No',
+    parameters: 'None',
+    allowed: 'Only once, inside the pipeline block.',
   },
   parameters: {
-    required: "No",
-    parameters: "None",
-    allowed: "Only once, inside the pipeline block.",
+    required: 'No',
+    parameters: 'None',
+    allowed: 'Only once, inside the pipeline block.',
   },
   triggers: {
-    required: "No",
-    parameters: "None",
-    allowed: "Only once, inside the pipeline block.",
+    required: 'No',
+    parameters: 'None',
+    allowed: 'Only once, inside the pipeline block.',
   },
   stage: {
-    required: "At least one",
-    parameters: "One mandatory parameter, a string for the name of the stage.",
-    allowed: "Inside the stages section.",
+    required: 'At least one',
+    parameters: 'One mandatory parameter, a string for the name of the stage.',
+    allowed: 'Inside the stages section.',
   },
   tools: {
-    required: "No",
-    parameters: "None",
-    allowed: "Inside the pipeline block or a stage block.",
+    required: 'No',
+    parameters: 'None',
+    allowed: 'Inside the pipeline block or a stage block.',
   },
   when: {
-    required: "No",
-    parameters: "None",
-    allowed: "Inside a stage directive",
+    required: 'No',
+    parameters: 'None',
+    allowed: 'Inside a stage directive',
   },
 };
 
@@ -119,7 +119,7 @@ connection.onHover(
     let document = documents.get(_textDocumentPosition.textDocument.uri);
     if (document === undefined) {
       return {
-        contents: "",
+        contents: '',
       };
     }
     let offset = document.offsetAt(_textDocumentPosition.position);
@@ -128,7 +128,7 @@ connection.onHover(
     let desc = keywords[word];
     if (desc == null) {
       return {
-        contents: "",
+        contents: '',
       };
     }
     let markdown: MarkupContent = {
@@ -137,7 +137,7 @@ connection.onHover(
         `**Required:** ${desc.required}  `,
         `**Parameters:** ${desc.parameters}  `,
         `**Allowed:** ${desc.allowed}`,
-      ].join("\r"),
+      ].join('\r'),
     };
     return {
       contents: markdown,
@@ -182,12 +182,12 @@ connection.onCompletionResolve((item: CompletionItem): CompletionItem => {
   item.detail = [
     `Required: ${keyword.required}  `,
     `Parameters: ${keyword.parameters}`,
-  ].join("\r");
+  ].join('\r');
 
   return item;
 });
 
-documents.onDidChangeContent((change) => {
+documents.onDidChangeContent(change => {
   validateTextDocument(change.document);
 });
 
@@ -231,8 +231,8 @@ function getBracketsDiagnostics(
   diagnostics: Diagnostic[]
 ) {
   var stack = [];
-  var openingBrackets = ["(", "{", "["];
-  var closingBrackets = [")", "}", "]"];
+  var openingBrackets = ['(', '{', '['];
+  var closingBrackets = [')', '}', ']'];
 
   for (let i = 0; i < text.length; i++) {
     var char = text[i];
@@ -249,7 +249,7 @@ function getBracketsDiagnostics(
           textDocument,
           i,
           i + char.length,
-          "Brackets do not match",
+          'Brackets do not match',
           diagnostics
         );
       }
@@ -261,7 +261,7 @@ function getBracketsDiagnostics(
       textDocument,
       stack[i].i,
       stack[i].i + stack[i].char.length,
-      "Brackets do not match",
+      'Brackets do not match',
       diagnostics
     );
   }
@@ -305,7 +305,7 @@ function validateTextDocument(textDocument: TextDocument) {
   var textWithoutComments = text.replace(
     /('(?:[^'\\]|\\.)*')|("(?:[^"\\]|\\.)*")|("""[\s\S]*?""")|(\/\/.*)|(\/\*[\s\S]*?\*\/)/g,
     function (selection) {
-      return new Array(selection.length + 1).join("~");
+      return new Array(selection.length + 1).join('~');
     }
   );
 

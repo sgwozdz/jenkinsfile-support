@@ -42,9 +42,7 @@
     },
     "echo": {
       "prefix": "echo",
-      "body": [
-        "echo \"====++++${something}++++====\""
-      ],
+      "body": ["echo \"====++++${something}++++====\""],
       "description": "echo"
     },
     "stage": {

@@ -1,264 +1,264 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "jenkins",
-	"scopeName": "source.jenkins",
-	"patterns": [
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#stage"
-		},
-		{
-			"include": "#step"
-		},
-		{
-			"include": "#functions"
-		},
-		{
-			"include": "#conditions"
-		},
-		{
-			"include": "#flowControl"
-		},
-		{
-			"include": "#variables"
-		},
-		{
-			"include": "#constants"
-		},
-		{
-			"include": "#string-single-quote-multiline"
-		},
-		{
-			"include": "#string-double-quote-multiline"
-		},
-		{
-			"include": "#string-single-quote"
-		},
-		{
-			"include": "#string-double-quote"
-		},
-		{
-			"include": "#comment"
-		}
-	],
-	"repository": {
-		"stage": {
-			"patterns": [
-				{
-					"name": "keyword.other.jenkinsfile",
-					"match": "\\b(stage)\\b"
-				}
-			]
-		},
-		"step": {
-			"patterns": [
-				{
-					"name": "entity.name.class.jenkinsfile",
-					"match": "\\b(step)\\b"
-				}
-			]
-		},
-		"keywords": {
-			"patterns": [
-				{
-					"name": "keyword.control.jenkinsfile",
-					"match": "\\b(agent|post|stages|steps|environment|options|parameters|triggers|tools|input|when|parallel|matrix)\\b"
-				}
-			]
-		},
-		"functions": {
-			"patterns": [
-				{
-					"name": "strong.jenkinsfile",
-					"match": "\\b(bat|node|powershell|sh|ws|echo|def)\\b"
-				}
-			]
-		},
-		"conditions": {
-			"patterns": [
-				{
-					"name": "entity.name.function.jenkinsfile",
-					"match": "\\b(always|changed|fixed|regression|aborted|failure|success|unstable|unsuccessful|cleanup)\\b"
-				}
-			]
-		},
-		"flowControl": {
-			"patterns": [
-				{
-					"name":"keyword.control.conditional.jenkinsfile",
-					"match": "\\b(if|else|try|catch|finally|throw)\\b"
-				}
-			]
-		},
-		"variables": {
-			"patterns": [
-				{
-					"name": "variable.parameter.jenkinsfile",
-					"match": "\\w+:|\\b(env)\\b"
-				}
-			]
-		},
-		"constants": {
-			"patterns": [
-				{
-					"name": "constant.language.jenkinsfile",
-					"match": "\\b(true|false)\\b"
-				}
-			]
-		},
-		"string-single-quote": {
-			"name": "string.quoted.double.jenkins",
-			"begin": "(?<!'')'",
-			"beginCaptures": {
-				"0": {
-					"name": "punctuation.definition.string.begin.jenkins"
-				}
-			},
-			"end": "(')|((?:[^\\\\\\n])$)",
-			"endCaptures": {
-				"1": {
-					"name": "punctuation.definition.string.end.jenkins"
-				},
-				"2": {
-					"name": "invalid.illegal.newline.jenkins"
-				}
-			},
-			"patterns": [
-				{
-					"include": "#string-character-escape"
-				},
-				{
-					"include": "#variable-usage"
-				}
-			]
-		},
-		"string-double-quote": {
-			"name": "string.quoted.double.jenkins",
-			"begin": "(?<!\"\")\"",
-			"beginCaptures": {
-				"0": {
-					"name": "punctuation.definition.string.begin.jenkins"
-				}
-			},
-			"end": "(\")|((?:[^\\\\\\n])$)",
-			"endCaptures": {
-				"1": {
-					"name": "punctuation.definition.string.end.jenkins"
-				},
-				"2": {
-					"name": "invalid.illegal.newline.jenkins"
-				}
-			},
-			"patterns": [
-				{
-					"include": "#string-character-escape"
-				},
-				{
-					"include": "#variable-usage"
-				}
-			]
-		},
-		"string-single-quote-multiline": {
-			"name": "string.quoted.double.jenkins",
-			"begin": "'''",
-			"beginCaptures": {
-				"0": {
-					"name": "punctuation.definition.string.begin.jenkins"
-				}
-			},
-			"end": "'''",
-			"endCaptures": {
-				"1": {
-					"name": "punctuation.definition.string.end.jenkins"
-				},
-				"2": {
-					"name": "invalid.illegal.newline.jenkins"
-				}
-			},
-			"patterns": [
-				{
-					"include": "#string-character-escape"
-				},
-				{
-					"include": "#variable-usage"
-				}
-			]
-		},
-		"string-double-quote-multiline": {
-			"name": "string.quoted.double.jenkins",
-			"begin": "\"\"\"",
-			"beginCaptures": {
-				"0": {
-					"name": "punctuation.definition.string.begin.jenkins"
-				}
-			},
-			"end": "\"\"\"",
-			"endCaptures": {
-				"1": {
-					"name": "punctuation.definition.string.end.jenkins"
-				},
-				"2": {
-					"name": "invalid.illegal.newline.jenkins"
-				}
-			},
-			"patterns": [
-				{
-					"include": "#string-character-escape"
-				},
-				{
-					"include": "#variable-usage"
-				}
-			]
-		},
-		"string-character-escape": {
-			"name": "constant.character.escape.jenkinss",
-			"match": "\\\\(['\"\\\\0abfnrtv]|x[0-9a-fA-F]{1,4}|U[0-9a-fA-F]{8}|u[0-9a-fA-F]{4})"
-		},
-		"variable-usage": {
-			"name": "variable.parameter.jenkinsfile",
-			"match": "(?<=\\{).+(?=\\})"
-		},
-		"comment": {
-			"patterns": [
-				{
-					"name": "comment.block.jenkins",
-					"begin": "/\\*",
-					"beginCaptures": {
-						"0": {
-							"name": "punctuation.definition.comment.jenkins"
-						}
-					},
-					"end": "\\*/",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.comment.jenkins"
-						}
-					}
-				},
-				{
-					"begin": "(^\\s+)?(?=//)",
-					"beginCaptures": {
-						"1": {
-							"name": "punctuation.whitespace.comment.leading.jenkins"
-						}
-					},
-					"end": "(?=$)",
-					"patterns": [
-						{
-							"name": "comment.line.double-slash.jenkins",
-							"begin": "(?<!/)//(?:(?!/)|(?=//))",
-							"beginCaptures": {
-								"0": {
-									"name": "punctuation.definition.comment.jenkins"
-								}
-							},
-							"end": "(?=$)"
-						}
-					]
-				}
-			]
-		}
-	}
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "jenkins",
+  "scopeName": "source.jenkins",
+  "patterns": [
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#stage"
+    },
+    {
+      "include": "#step"
+    },
+    {
+      "include": "#functions"
+    },
+    {
+      "include": "#conditions"
+    },
+    {
+      "include": "#flowControl"
+    },
+    {
+      "include": "#variables"
+    },
+    {
+      "include": "#constants"
+    },
+    {
+      "include": "#string-single-quote-multiline"
+    },
+    {
+      "include": "#string-double-quote-multiline"
+    },
+    {
+      "include": "#string-single-quote"
+    },
+    {
+      "include": "#string-double-quote"
+    },
+    {
+      "include": "#comment"
+    }
+  ],
+  "repository": {
+    "stage": {
+      "patterns": [
+        {
+          "name": "keyword.other.jenkinsfile",
+          "match": "\\b(stage)\\b"
+        }
+      ]
+    },
+    "step": {
+      "patterns": [
+        {
+          "name": "entity.name.class.jenkinsfile",
+          "match": "\\b(step)\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.jenkinsfile",
+          "match": "\\b(agent|post|stages|steps|environment|options|parameters|triggers|tools|input|when|parallel|matrix)\\b"
+        }
+      ]
+    },
+    "functions": {
+      "patterns": [
+        {
+          "name": "strong.jenkinsfile",
+          "match": "\\b(bat|node|powershell|sh|ws|echo|def)\\b"
+        }
+      ]
+    },
+    "conditions": {
+      "patterns": [
+        {
+          "name": "entity.name.function.jenkinsfile",
+          "match": "\\b(always|changed|fixed|regression|aborted|failure|success|unstable|unsuccessful|cleanup)\\b"
+        }
+      ]
+    },
+    "flowControl": {
+      "patterns": [
+        {
+          "name": "keyword.control.conditional.jenkinsfile",
+          "match": "\\b(if|else|try|catch|finally|throw)\\b"
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "name": "variable.parameter.jenkinsfile",
+          "match": "\\w+:|\\b(env)\\b"
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "name": "constant.language.jenkinsfile",
+          "match": "\\b(true|false)\\b"
+        }
+      ]
+    },
+    "string-single-quote": {
+      "name": "string.quoted.double.jenkins",
+      "begin": "(?<!'')'",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.begin.jenkins"
+        }
+      },
+      "end": "(')|((?:[^\\\\\\n])$)",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.end.jenkins"
+        },
+        "2": {
+          "name": "invalid.illegal.newline.jenkins"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#string-character-escape"
+        },
+        {
+          "include": "#variable-usage"
+        }
+      ]
+    },
+    "string-double-quote": {
+      "name": "string.quoted.double.jenkins",
+      "begin": "(?<!\"\")\"",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.begin.jenkins"
+        }
+      },
+      "end": "(\")|((?:[^\\\\\\n])$)",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.end.jenkins"
+        },
+        "2": {
+          "name": "invalid.illegal.newline.jenkins"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#string-character-escape"
+        },
+        {
+          "include": "#variable-usage"
+        }
+      ]
+    },
+    "string-single-quote-multiline": {
+      "name": "string.quoted.double.jenkins",
+      "begin": "'''",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.begin.jenkins"
+        }
+      },
+      "end": "'''",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.end.jenkins"
+        },
+        "2": {
+          "name": "invalid.illegal.newline.jenkins"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#string-character-escape"
+        },
+        {
+          "include": "#variable-usage"
+        }
+      ]
+    },
+    "string-double-quote-multiline": {
+      "name": "string.quoted.double.jenkins",
+      "begin": "\"\"\"",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.begin.jenkins"
+        }
+      },
+      "end": "\"\"\"",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.end.jenkins"
+        },
+        "2": {
+          "name": "invalid.illegal.newline.jenkins"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#string-character-escape"
+        },
+        {
+          "include": "#variable-usage"
+        }
+      ]
+    },
+    "string-character-escape": {
+      "name": "constant.character.escape.jenkinss",
+      "match": "\\\\(['\"\\\\0abfnrtv]|x[0-9a-fA-F]{1,4}|U[0-9a-fA-F]{8}|u[0-9a-fA-F]{4})"
+    },
+    "variable-usage": {
+      "name": "variable.parameter.jenkinsfile",
+      "match": "(?<=\\{).+(?=\\})"
+    },
+    "comment": {
+      "patterns": [
+        {
+          "name": "comment.block.jenkins",
+          "begin": "/\\*",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.jenkins"
+            }
+          },
+          "end": "\\*/",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.jenkins"
+            }
+          }
+        },
+        {
+          "begin": "(^\\s+)?(?=//)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.whitespace.comment.leading.jenkins"
+            }
+          },
+          "end": "(?=$)",
+          "patterns": [
+            {
+              "name": "comment.line.double-slash.jenkins",
+              "begin": "(?<!/)//(?:(?!/)|(?=//))",
+              "beginCaptures": {
+                "0": {
+                  "name": "punctuation.definition.comment.jenkins"
+                }
+              },
+              "end": "(?=$)"
+            }
+          ]
+        }
+      ]
+    }
+  }
 }
