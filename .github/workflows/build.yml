@@ -23,5 +23,5 @@ jobs:
           node-version: 24.x
       - name: Install dependencies
         run: npm install
-      - name: Compile
-        run: npm run compile
+      - name: Build
+        run: npm run build
