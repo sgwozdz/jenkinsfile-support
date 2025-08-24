@@ -1,0 +1,10 @@
+stage('Checkout code') {
+    steps {
+        dir('a') { git branch: "${params.BRANCH_TO_DEPLOY}", changelog: true, credentialsId: git_ssh_key, url: 'ssh://git@github.com/repo/a.git' }
+        dir('b') { git branch: "${params.BRANCH_TO_DEPLOY}", changelog: true, credentialsId: git_ssh_key, url: 'ssh://git@github.com/repo/b.git' }
+        dir('c') { git branch: "${params.BRANCH_TO_DEPLOY}", changelog: true, credentialsId: git_ssh_key, url: 'ssh://git@github.com/repo/c.git' }
+        dir('d') { git branch: "${params.BRANCH_TO_DEPLOY}", changelog: true, credentialsId: git_ssh_key, url: 'ssh://git@github.com/repo/d.git' }
+        dir('e') { git branch: "${params.BRANCH_TO_DEPLOY}", changelog: true, credentialsId: git_ssh_key, url: 'ssh://git@github.com/repo/e.git' }
+        dir('f') { git branch: "${params.BRANCH_TO_DEPLOY}", changelog: true, credentialsId: git_ssh_key, url: 'ssh://git@github.com/repo/f.git' }
+    }
+}

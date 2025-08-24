@@ -1,0 +1,12 @@
+pipeline {
+  agent any
+  stages {
+    stage('echo logs') {
+      steps {
+        sh """#!/usr/bin/env bash
+          cat tmp/*.log
+        """
+      }
+    }
+  }
+}

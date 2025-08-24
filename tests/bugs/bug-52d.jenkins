@@ -1,0 +1,12 @@
+pipeline {
+    agent any
+    stages {
+        stage('A Stage') {
+            steps {
+                sh """
+                    echo This is a bracket (
+                """
+            }
+        }
+    }
+}

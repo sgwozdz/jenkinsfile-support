@@ -1,0 +1,16 @@
+stage("New Stage") {
+    steps {
+        ansiblePlaybook (
+            extraVars: [
+                host: 'docker-host.domain.com'
+            ],
+            extras: '-e \'{"json_array":["one","two","three"]}\'',
+            installation: 'usr_bin_jenkins',
+            colorized: true,
+            playbook: '/path/to/playbook.yml'
+        )
+        ansiColor('xterm') {
+            sh "cat /a/directory/file"
+        }
+    }
+}
