@@ -1,3 +1,28 @@
-pipeline{
-   stages('sad)
+try {
+
+	// Creating Page Structure
+	tacProjectNames.each() { pn ->
+
+        // If not create one
+		if ( ! tacRelNotesPageId ) {
+
+			def findPageId = 		pipelineUtils.createConfluencePage(
+				pipelineConfig.CONFLUENCE_URL,
+				env.USER,
+				env.PASSWORD,
+				SPACE_KEY,
+				conflTmplVals[conflTmplIndRelNotes].replaceAll("@RELEASE_NOTES@", """<table><colgroup><col/><col/></colgroup><tbody><tr><th>DEV</th><td>${relDEV}</td></tr><tr><th>SIT</th><td>${relSIT}</td></tr><tr><th>PPT</th><td>${relPPT}</td></tr><tr><th>PRD</th><td>${relPRD}</td></tr></tbody></table>""")
+												   .replaceAll("@RAW_DATA@", tacRelNotesJSONstr.replaceAll('\\$', '\\\\\\$').replaceAll("\n","\\\\\\\\n").replaceAll("\"","\\\\\"")),
+				tacPrjPageId,
+				"""Release Notes (${pn})"""
+			)
+			tacRelNotesPageId = findPageId
+		}
+
+
+    }
+
+} catch (err) {
+    currentBuild.result = "FAILED"
+    throw err
 }
