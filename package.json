@@ -68,8 +68,8 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -b",
+    "vscode:prepublish": "npm run build",
+    "build": "tsc -b",
     "watch": "tsc -b -w",
     "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
     "deploy": "@vscode/vsce publish --yarn",
