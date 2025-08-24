@@ -1,0 +1,3 @@
+pipeline{
+   stages('sad)
+}

@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+    stages {
+        stage('A Stage') {
+            steps {
+                writeFile file: 'sample.txt', text: 'Valid text within single quotes'
+            }
+        }
+    }
+    post {
+        always {
+            archiveArtifacts '**/*.txt'
+        }
+    }
+}

@@ -1,0 +1,7 @@
+pipeline {
+    agent none
+    parameters {
+        string(name: 'GIT_URL', defaultValue: 'https://example.com/repos/project.git', description: 'whatever')
+    }
+
+}
