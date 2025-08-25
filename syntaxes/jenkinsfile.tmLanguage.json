@@ -218,7 +218,12 @@
     },
     "variable-usage": {
       "name": "variable.parameter.jenkinsfile",
-      "match": "(?<=\\{).+(?=\\})"
+      "match": "\\$\\{([^}]+)\\}",
+      "captures": {
+        "1": {
+          "name": "variable.parameter.jenkinsfile"
+        }
+      }
     },
     "comment": {
       "patterns": [
