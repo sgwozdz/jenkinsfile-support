@@ -21,7 +21,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24.x
+          cache: "npm"
       - name: Install dependencies
         run: npm install
+      - name: Lint
+        run: npm run lint
+      - name: Format check
+        run: npm run format:check
       - name: Build
         run: npm run build
+      - name: Package extension
+        run: npm run deploy --dry-run

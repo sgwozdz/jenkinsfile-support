@@ -72,7 +72,7 @@
     "build": "tsc -b",
     "watch": "tsc -b -w",
     "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
-    "deploy": "@vscode/vsce publish --yarn",
+    "deploy": "npx @vscode/vsce publish",
     "format": "prettier --write \"**/*.{ts,js,json}\"",
     "format:check": "prettier --check \"**/*.{ts,js,json}\"",
     "lint": "eslint \"**/*.{ts,js}\"",
