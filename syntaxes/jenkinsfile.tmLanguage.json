@@ -7,6 +7,9 @@
       "include": "#keywords"
     },
     {
+      "include": "#pipeline"
+    },
+    {
       "include": "#stage"
     },
     {
@@ -16,7 +19,7 @@
       "include": "#functions"
     },
     {
-      "include": "#conditions"
+      "include": "#postConditions"
     },
     {
       "include": "#flowControl"
@@ -44,6 +47,14 @@
     }
   ],
   "repository": {
+    "pipeline": {
+      "patterns": [
+        {
+          "name": "entity.name.class.jenkins",
+          "match": "\\b(pipeline|script|library)\\b"
+        }
+      ]
+    },
     "stage": {
       "patterns": [
         {
@@ -63,7 +74,7 @@
     "keywords": {
       "patterns": [
         {
-          "name": "keyword.control.jenkinsfile",
+          "name": "keyword.control.structure.jenkins",
           "match": "\\b(agent|post|stages|steps|environment|options|parameters|triggers|tools|input|when|parallel|matrix)\\b"
         }
       ]
@@ -71,15 +82,19 @@
     "functions": {
       "patterns": [
         {
-          "name": "strong.jenkinsfile",
-          "match": "\\b(bat|node|powershell|sh|ws|echo|def)\\b"
+          "name": "strong.jenkins",
+          "match": "\\b(bat|node|powershell|sh|ws|echo|def|currentBuild|params|env|checkout|build|archiveArtifacts|publishHTML)\\b"
+        },
+        {
+          "name": "support.function.utility.jenkins",
+          "match": "\\b(string|timeout)\\b"
         }
       ]
     },
-    "conditions": {
+    "postConditions": {
       "patterns": [
         {
-          "name": "entity.name.function.jenkinsfile",
+          "name": "constant.language.jenkins",
           "match": "\\b(always|changed|fixed|regression|aborted|failure|success|unstable|unsuccessful|cleanup)\\b"
         }
       ]
@@ -87,42 +102,43 @@
     "flowControl": {
       "patterns": [
         {
-          "name": "keyword.control.conditional.jenkinsfile",
-          "match": "\\b(if|else|try|catch|finally|throw)\\b"
+          "name": "keyword.control.conditional.jenkins",
+          "match": "\\b(if|else|try|catch|finally|throw|for|while|switch|case|default|break|continue|return)\\b"
         }
       ]
     },
     "variables": {
       "patterns": [
         {
-          "name": "variable.parameter.jenkinsfile",
-          "match": "\\w+:|\\b(env)\\b"
+          "name": "variable.other.constant.jenkins",
+          "match": "\\w+:|\\b(env|params|currentBuild)\\b"
+        },
+        {
+          "name": "variable.other.property.jenkins",
+          "match": "\\b(env|params|currentBuild)\\.[\\w.]+"
         }
       ]
     },
     "constants": {
       "patterns": [
         {
-          "name": "constant.language.jenkinsfile",
-          "match": "\\b(true|false)\\b"
+          "name": "constant.language.jenkins",
+          "match": "\\b(true|false|null|this|super)\\b"
         }
       ]
     },
     "string-single-quote": {
-      "name": "string.quoted.double.jenkins",
+      "name": "string.quoted.single.jenkins",
       "begin": "(?<!'')'",
       "beginCaptures": {
         "0": {
           "name": "punctuation.definition.string.begin.jenkins"
         }
       },
-      "end": "(')|((?:[^\\\\\\n])$)",
+      "end": "'",
       "endCaptures": {
-        "1": {
+        "0": {
           "name": "punctuation.definition.string.end.jenkins"
-        },
-        "2": {
-          "name": "invalid.illegal.newline.jenkins"
         }
       },
       "patterns": [
@@ -142,13 +158,10 @@
           "name": "punctuation.definition.string.begin.jenkins"
         }
       },
-      "end": "(\")|((?:[^\\\\\\n])$)",
+      "end": "\"",
       "endCaptures": {
-        "1": {
+        "0": {
           "name": "punctuation.definition.string.end.jenkins"
-        },
-        "2": {
-          "name": "invalid.illegal.newline.jenkins"
         }
       },
       "patterns": [
@@ -161,7 +174,7 @@
       ]
     },
     "string-single-quote-multiline": {
-      "name": "string.quoted.double.jenkins",
+      "name": "string.quoted.single.multiline.jenkins",
       "begin": "'''",
       "beginCaptures": {
         "0": {
@@ -170,11 +183,8 @@
       },
       "end": "'''",
       "endCaptures": {
-        "1": {
+        "0": {
           "name": "punctuation.definition.string.end.jenkins"
-        },
-        "2": {
-          "name": "invalid.illegal.newline.jenkins"
         }
       },
       "patterns": [
@@ -187,7 +197,7 @@
       ]
     },
     "string-double-quote-multiline": {
-      "name": "string.quoted.double.jenkins",
+      "name": "string.quoted.double.multiline.jenkins",
       "begin": "\"\"\"",
       "beginCaptures": {
         "0": {
@@ -196,11 +206,8 @@
       },
       "end": "\"\"\"",
       "endCaptures": {
-        "1": {
+        "0": {
           "name": "punctuation.definition.string.end.jenkins"
-        },
-        "2": {
-          "name": "invalid.illegal.newline.jenkins"
         }
       },
       "patterns": [
@@ -213,17 +220,21 @@
       ]
     },
     "string-character-escape": {
-      "name": "constant.character.escape.jenkinss",
+      "name": "constant.character.escape.jenkins",
       "match": "\\\\(['\"\\\\0abfnrtv]|x[0-9a-fA-F]{1,4}|U[0-9a-fA-F]{8}|u[0-9a-fA-F]{4})"
     },
     "variable-usage": {
-      "name": "variable.parameter.jenkinsfile",
+      "name": "variable.other.interpolated.jenkins",
       "match": "\\$\\{([^}]+)\\}",
       "captures": {
         "1": {
-          "name": "variable.parameter.jenkinsfile"
+          "name": "variable.other.interpolated.jenkins"
         }
       }
+    },
+    "variable-property": {
+      "name": "variable.other.property.jenkins",
+      "match": "\\b(env|params|currentBuild)\\.[\\w.]+"
     },
     "comment": {
       "patterns": [
@@ -262,6 +273,14 @@
               "end": "(?=$)"
             }
           ]
+        }
+      ]
+    },
+    "jenkinsSpecific": {
+      "patterns": [
+        {
+          "name": "support.constant.jenkins",
+          "match": "\\b(any|none|label|dockerfile|kubernetes|jenkins|master|slave)\\b"
         }
       ]
     }
