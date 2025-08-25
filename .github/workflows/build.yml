@@ -32,3 +32,5 @@ jobs:
         run: npm run build
       - name: Package extension
         run: npm run deploy --dry-run
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
