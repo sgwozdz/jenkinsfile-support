@@ -14,7 +14,7 @@
   "icon": "images/icon.png",
   "publisher": "recode4dev",
   "engines": {
-    "vscode": "^1.56.2"
+    "vscode": "^1.103.0"
   },
   "homepage": "https://github.com/sgwozdz/jenkinsfile-support",
   "repository": {
@@ -82,9 +82,9 @@
     "fix": "npm run lint:fix && npm run format"
   },
   "devDependencies": {
-    "@types/node": "15.3.1",
-    "@typescript-eslint/eslint-plugin": "8.40.0",
-    "@typescript-eslint/parser": "8.40.0",
+    "@types/node": "24.3.0",
+    "@typescript-eslint/eslint-plugin": "8.41.0",
+    "@typescript-eslint/parser": "8.41.0",
     "@vscode/vsce": "3.6.0",
     "eslint": "9.34.0",
     "eslint-config-prettier": "10.1.8",
