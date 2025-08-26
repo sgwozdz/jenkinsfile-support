@@ -6,10 +6,10 @@ labels: ['bug', 'needs-triage']
 assignees: sgwozdz
 ---
 
-## 🐛 Bug Description
+### 🐛 Bug Description
 
-## ✅ Expected Behaviour
+### ✅ Expected Behaviour
 
-## ❌ Actual Behaviour
+### ❌ Actual Behaviour
 
-## 📋 Additional Context
+### 📋 Additional Context
