@@ -13,7 +13,6 @@
   },
   "scripts": {},
   "dependencies": {
-    "mocha": "^11.7.1",
     "vscode-languageclient": "7.0.0"
   },
   "devDependencies": {

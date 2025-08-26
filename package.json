@@ -82,13 +82,10 @@
     "fix": "npm run lint:fix && npm run format"
   },
   "devDependencies": {
-    "@types/chai": "4.2.18",
-    "@types/mocha": "8.2.2",
     "@types/node": "15.3.1",
     "@typescript-eslint/eslint-plugin": "8.40.0",
     "@typescript-eslint/parser": "8.40.0",
     "@vscode/vsce": "3.6.0",
-    "chai": "4.3.4",
     "eslint": "9.34.0",
     "eslint-config-prettier": "10.1.8",
     "prettier": "3.6.2",
