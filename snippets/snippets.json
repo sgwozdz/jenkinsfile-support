@@ -3,87 +3,46 @@
     "pipeline": {
       "prefix": "pipeline",
       "body": [
-        "pipeline{",
-        "    agent{",
-        "        label \"${1:node}\"",
-        "    }",
-        "    stages{",
-        "        stage(\"${2:Stage Name}\"){",
-        "            steps{",
-        "                echo \"========executing ${2}========\"",
+        "pipeline {",
+        "    agent any",
+        "    stages {",
+        "        stage('${1:Build}') {",
+        "            steps {",
+        "                ${2:// build steps}",
         "            }",
-        "            post{",
-        "                always{",
-        "                    echo \"========always========\"",
-        "                }",
-        "                success{",
-        "                    echo \"========${2} executed successfully========\"",
-        "                }",
-        "                failure{",
-        "                    echo \"========${2} execution failed========\"",
-        "                }",
-        "            }",
-        "        }",
-        "    }",
-        "    post{",
-        "        always{",
-        "            echo \"========always========\"",
-        "        }",
-        "        success{",
-        "            echo \"========pipeline executed successfully ========\"",
-        "        }",
-        "        failure{",
-        "            echo \"========pipeline execution failed========\"",
         "        }",
         "    }",
         "}"
       ],
-      "description": "pipeline"
-    },
-    "echo": {
-      "prefix": "echo",
-      "body": ["echo \"====++++${1:message}++++====\""],
-      "description": "echo"
+      "description": "basic pipeline structure"
     },
     "stage": {
       "prefix": "stage",
       "body": [
-        "stage(\"${1:Stage Name}\"){",
-        "    steps{",
-        "        echo \"====++++executing ${1}++++====\"",
-        "    }",
-        "    post{",
-        "        always{",
-        "            echo \"====++++always++++====\"",
-        "        }",
-        "        success{",
-        "            echo \"====++++${1} executed successfully++++====\"",
-        "        }",
-        "        failure{",
-        "            echo \"====++++${1} execution failed++++====\"",
-        "        }",
-        "",
+        "stage('${1:Stage Name}') {",
+        "    steps {",
+        "        ${2:// stage steps}",
         "    }",
         "}"
       ],
-      "description": "stage"
+      "description": "simple stage"
     },
     "post": {
       "prefix": "post",
       "body": [
-        "post{",
-        "    always{",
-        "        echo \"====++++always++++====\"",
+        "post {",
+        "    always {",
+        "        ${1:// always execute}",
         "    }",
-        "    success{",
-        "        echo \"====++++only when successful++++====\"",
+        "    success {",
+        "        ${2:// on success}",
         "    }",
-        "    failure{",
-        "        echo \"====++++only when failed++++====\"",
+        "    failure {",
+        "        ${3:// on failure}",
         "    }",
         "}"
       ],
-      "description": "post"
+      "description": "post actions block"
     },
     "if": {
       "prefix": "if",
@@ -94,34 +53,71 @@
         "    ${3:// code to execute if false}",
         "}"
       ],
-      "description": "if else"
+      "description": "if else statement"
     },
     "try": {
       "prefix": "try",
       "body": [
         "try {",
         "    ${1:// code to try}",
-        "}",
-        "catch (${2:exception}) {",
+        "} catch (${2:exception}) {",
         "    ${3:// code to execute on exception}",
         "}"
       ],
-      "description": "try catch"
+      "description": "try catch block"
     },
     "tryf": {
       "prefix": "tryf",
       "body": [
         "try {",
         "    ${1:// code to try}",
-        "}",
-        "catch (${2:exception}) {",
+        "} catch (${2:exception}) {",
         "    ${3:// code to execute on exception}",
-        "}",
-        "finally {",
+        "} finally {",
         "    ${4:// code to execute always}",
         "}"
       ],
-      "description": "try catch finally"
+      "description": "try catch finally block"
+    },
+    "param-string": {
+      "prefix": "param-string",
+      "body": [
+        "string(name: '${1:PARAM_NAME}', defaultValue: '${2:default}', description: '${3:Description}')"
+      ],
+      "description": "string parameter"
+    },
+    "param-text": {
+      "prefix": "param-text",
+      "body": [
+        "text(name: '${1:PARAM_NAME}', defaultValue: '${2:default}', description: '${3:Description}')"
+      ],
+      "description": "text parameter (multi-line)"
+    },
+    "param-boolean": {
+      "prefix": "param-bool",
+      "body": [
+        "booleanParam(name: '${1:PARAM_NAME}', defaultValue: ${2:false}, description: '${3:Description}')"
+      ],
+      "description": "boolean parameter"
+    },
+    "param-choice": {
+      "prefix": "param-choice",
+      "body": [
+        "choice(name: '${1:PARAM_NAME}', choices: ['${2:option1}', '${3:option2}'], description: '${4:Description}')"
+      ],
+      "description": "choice parameter"
+    },
+    "param-password": {
+      "prefix": "param-pwd",
+      "body": [
+        "password(name: '${1:PARAM_NAME}', description: '${2:Description}')"
+      ],
+      "description": "password parameter"
+    },
+    "env": {
+      "prefix": "env",
+      "body": ["environment {", "    ${1:VARIABLE} = '${2:value}'", "}"],
+      "description": "environment variable"
     }
   }
 }
