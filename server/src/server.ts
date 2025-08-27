@@ -4,17 +4,14 @@ import {
   ProposedFeatures,
   Hover,
   TextDocumentPositionParams,
-  MarkupKind,
-  MarkupContent,
   CompletionItem,
-  CompletionItemKind,
   Diagnostic,
   DiagnosticSeverity,
   TextDocumentSyncKind,
 } from 'vscode-languageserver/node';
 
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { simpleKeywords, keywords } from './keywords';
+import { keywords } from './keywords';
 
 const connection = createConnection(ProposedFeatures.all);
 const documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
@@ -42,12 +39,14 @@ connection.onHover(
     const offset = document.offsetAt(_textDocumentPosition.position);
     const text = document.getText();
     const word = getWordAt(text, offset);
-    const desc = keywords[word];
+    const desc = keywords.find(x => x.label === word);
     if (desc == null) {
       return {
         contents: '',
       };
     }
+    //TODO: fix
+    /*
     const markdown: MarkupContent = {
       kind: MarkupKind.Markdown,
       value: [
@@ -56,49 +55,30 @@ connection.onHover(
         `**Allowed:** ${desc.allowed}`,
       ].join('\r'),
     };
+    */
     return {
-      contents: markdown,
+      contents: 'test',
     };
   }
 );
 
 connection.onCompletion((): CompletionItem[] => {
-  // The pass parameter contains the position of the text document in
-  // which code complete got requested. For the example we ignore this
-  // info and always provide the same completion items.
-  const list: CompletionItem[] = [];
-
-  for (const keyword of simpleKeywords) {
-    list.push({
-      label: keyword,
-      kind: CompletionItemKind.Keyword,
-    });
-  }
-
-  for (const keyword in keywords) {
-    list.push({
-      label: keyword,
-      kind: CompletionItemKind.Keyword,
-    });
-  }
-
-  return list;
+  return keywords;
 });
 
-// This handler resolve additional information for the item selected in
-// the completion list.
 connection.onCompletionResolve((item: CompletionItem): CompletionItem => {
-  const keyword = keywords[item.label];
+  const keyword = keywords.find(x => x.label === item.label);
   if (keyword === undefined) {
     return item;
   }
-
+  //TODO: fix
+  /*
   item.documentation = `Allowed: ${keyword.allowed}`;
   item.detail = [
     `Required: ${keyword.required}  `,
     `Parameters: ${keyword.parameters}`,
   ].join('\r');
-
+*/
   return item;
 });
 
