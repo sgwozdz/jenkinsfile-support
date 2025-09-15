@@ -206,11 +206,11 @@ function validateTextDocument(textDocument: TextDocument) {
 
   getBracketsDiagnostics(textWithoutComments, textDocument, diagnostics);
 
-  const allowOncePipelinesBlock = /pipeline(| ){/g;
-  // let allowOnceStagesBlock = /stages(| ){/g;
-  // let allowOnceOptionsBlock = /options(| ){/g;
-  const allowOnceParametersBlock = /parameters(| ){/g;
-  const allowOnceTriggersBlock = /triggers(| ){/g;
+  const allowOncePipelinesBlock = /pipeline\s*{/g;
+  // let allowOnceStagesBlock = /stages\s*{/g;
+  // let allowOnceOptionsBlock = /options\s*{/g;
+  const allowOnceParametersBlock = /parameters\s*{/g;
+  const allowOnceTriggersBlock = /triggers\s*{/g;
 
   getAllowOnceDiagnostics(
     allowOncePipelinesBlock,
